@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        overthinkingcode
+        Overthinking Code
       </h1>
       <h2 class="subtitle">
         Source for Overthinking Code
@@ -45,16 +45,16 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Muli', Verdana, Geneva, Tahoma, sans-serif sans-serif;
   display: block;
-  font-weight: 300;
+  font-weight: 800;
   font-size: 100px;
   color: #35495e;
   letter-spacing: 1px;
 }
 
 .subtitle {
+  font-family: 'Roboto Slab', 'Lucida Bright', Palatino, serif;
   font-weight: 300;
   font-size: 42px;
   color: #526488;
