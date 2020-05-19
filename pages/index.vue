@@ -34,7 +34,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import '@/assets/styles/global_variables.scss';
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -45,19 +47,19 @@ export default {
 }
 
 .title {
-  font-family: 'Muli', Verdana, Geneva, Tahoma, sans-serif sans-serif;
+  font-family: $header-font-stack;
   display: block;
   font-weight: 800;
   font-size: 100px;
-  color: #35495e;
+  color: $primary-color;
   letter-spacing: 1px;
 }
 
 .subtitle {
-  font-family: 'Roboto Slab', 'Lucida Bright', Palatino, serif;
+  font-family: $copy-font-stack;
   font-weight: 300;
   font-size: 42px;
-  color: #526488;
+  color: $secondary-color;
   word-spacing: 5px;
   padding-bottom: 15px;
 }
