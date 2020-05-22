@@ -1,13 +1,13 @@
 @import '~assets/styles/fonts.scss';
 
 $primary-color: #0C557F;
-$secondary-color: #16A0EF;
-$header-font-stack: 'Muli',
-Verdana,
-Geneva,
-Tahoma,
-sans-serif;
-$copy-font-stack: 'Roboto Slab',
-'Lucida Bright',
-Palatino,
-serif;
+$secondary-color: #4DB8E2;
+$default-grey: #191F19;
+$default-black: #0F0F0F;
+$default-white: #FDFDFA;
+$header-font-stack: 'Muli', Verdana, Geneva, Tahoma, sans-serif;
+$copy-font-stack: 'Roboto Slab', 'Lucida Bright', Palatino, serif;
+
+// Alternative colors
+$primary-color-alt: #0C557F;
+$secondary-color-alt: #4DB8E2;
