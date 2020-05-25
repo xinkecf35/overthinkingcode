@@ -23,7 +23,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@/assets/styles/fonts.scss', '@/assets/styles/global_variables.scss'],
+  css: [
+    '@/assets/styles/fonts.scss',
+    '@/assets/styles/global_variables.scss',
+    '@/assets/styles/normalize.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -47,6 +51,10 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+  /**
+   ** Generate configuration
+   */
+  generate: {},
   /*
    ** Build configuration
    */

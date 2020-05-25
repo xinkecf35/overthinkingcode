@@ -1,13 +1,25 @@
 <template>
-  <div>
+  <div class="container">
+    <vertical-nav />
     <nuxt />
   </div>
 </template>
+<script>
+import VerticalNav from '@/components/VerticalNav.vue';
 
-<style>
+export default {
+  components: {
+    VerticalNav,
+  },
+};
+</script>
+
+<style lang="scss">
+@import '~assets/styles/global_variables.scss';
+@import '~assets/styles/fonts.scss';
+
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: $copy-font-stack;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -15,6 +27,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  background-color: $default-white;
+  color: $default-black;
+  .dark {
+    color: $default-white;
+    background-color: $default-black;
+  }
 }
 
 *,
@@ -51,5 +69,15 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: $default-white;
 }
 </style>

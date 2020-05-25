@@ -37,15 +37,6 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global_variables.scss';
 
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .title {
   font-family: $header-font-stack;
   display: block;
