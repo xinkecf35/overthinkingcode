@@ -9,11 +9,11 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
+    'google',
     'prettier',
     'prettier/vue',
     'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
-    'google',
   ],
   plugins: ['prettier'],
   // add your custom rules here
@@ -24,7 +24,7 @@ module.exports = {
         code: 80,
         ignoreTemplateLiterals: true,
         ignoreStrings: true,
-        ignorePattern: ".*d=\".+\""
+        ignorePattern: '.*d=".+"',
       },
     ],
     semi: [2, 'always'],
