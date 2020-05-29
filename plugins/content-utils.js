@@ -93,7 +93,6 @@ function collateMetaFromPostsDir(basePath = postsBasePath) {
     years.forEach((year, i) => {
       postsByYear[year] = results[1][i];
     });
-
     const fullPaths = [];
     years.forEach((year) => {
       const posts = postsByYear[year];

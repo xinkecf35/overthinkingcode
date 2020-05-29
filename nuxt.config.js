@@ -1,3 +1,5 @@
+import Mode from 'frontmatter-markdown-loader/mode';
+
 export default {
   mode: 'universal',
   /*
@@ -38,7 +40,6 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/markdownit',
   ],
   /*
    ** Nuxt.js modules
@@ -68,6 +69,13 @@ export default {
       config.module.rules.push({
         test: /\.md$/,
         loader: 'frontmatter-markdown-loader',
+        options: {
+          mode: [Mode.META, Mode.VUE_COMPONENT],
+          markdownIt: {
+            html: true,
+            linkify: true,
+          },
+        },
       });
     },
   },
