@@ -136,7 +136,9 @@ function generateBlogMeta(basePath = postsBasePath) {
     const postsPaths = posts.map((post) => post.path);
     const years = Object.keys(postsByYear);
     const routes = posts.map((post) => post.route);
-    return { basePath, years, postsByYear, postFullPaths: postsPaths, routes };
+    const postMap = {};
+    routes.forEach((route, idx) => (postMap[route] = postsPaths[idx]));
+    return { basePath, years, postsByYear, routes, posts: postMap };
   });
 }
 
