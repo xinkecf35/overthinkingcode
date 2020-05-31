@@ -64,7 +64,7 @@ function getFilesFromFilePath(filePath) {
  * @param {string} filePath path of interest
  * @return {string[]} promise, markdown files in the path
  */
-function getMarkdownFilesFromFilePath(filePath) {
+function getMarkdownFiles(filePath) {
   const markdownRegex = /(\d{4}-\d{2}-\d{2})-[^_.]+.md/;
   return getFilesFromFilePath(filePath).then((files) => {
     return files.filter((file) => markdownRegex.test(file));
@@ -72,58 +72,78 @@ function getMarkdownFilesFromFilePath(filePath) {
 }
 
 /**
- * function to collate and process meta _post directory
- * returns an object with combined paths and other meta
- * @param {string} [basePath=postsBasePath] optional; path to posts
+ * function to collate and process meta directory
+ * returns an object with combined paths and other meta, by subdirectory,
+ * functionally by year
+ * @param {string} basePath optional; path to posts
  * @return {object} object containing full routes and other meta
  */
-function collateMetaFromPostsDir(basePath = postsBasePath) {
-  const yearsPromise = getYearsSubFoldersFromFilePath();
-  const postsForYearPromise = yearsPromise.then((years) => {
-    return Promise.all(
-      years.map((year) => {
-        const yearPath = basePath + '/' + year;
-        return getMarkdownFilesFromFilePath(yearPath);
-      })
-    );
-  });
-  return Promise.all([yearsPromise, postsForYearPromise]).then((results) => {
+function collateMetaPostsDirs(basePath) {
+  const yearsPromise = getYearsSubFolders();
+  const markdownFilesPromise = yearsPromise.then((years) =>
+    Promise.all(years.map((year) => getMarkdownFiles(basePath + '/' + year)))
+  );
+  const partialMetaPromises = Promise.all([yearsPromise, markdownFilesPromise]);
+  const postsMetaPromise = partialMetaPromises.then((results) => {
+    const postsMeta = {};
     const years = results[0];
-    const postsByYear = {};
+    const markdownFiles = results[1];
     years.forEach((year, i) => {
-      postsByYear[year] = results[1][i];
+      const posts = markdownFiles[i];
+      postsMeta[year] = posts.map((post) => ({
+        path: basePath + '/' + year + '/' + post,
+        route: generateRouteFromFileName(post),
+      }));
     });
-    const fullPaths = [];
-    years.forEach((year) => {
-      const posts = postsByYear[year];
-      posts.forEach((post) => {
-        const concatPath = basePath + '/' + year + '/' + post;
-        fullPaths.push(concatPath);
-      });
-    });
-    return {
-      basePath,
-      years,
-      postsByYear,
-      fullPaths,
-    };
+    return postsMeta;
   });
+
+  return postsMetaPromise;
 
   /**
    * returns subfolders matching year
    * @return {string[]} array of years subfolders
    */
-  function getYearsSubFoldersFromFilePath() {
+  function getYearsSubFolders() {
     const yearRegex = /\d{4}/;
     return getDirectoriesFromFilePath(basePath).then((directories) => {
       return directories.filter((directory) => yearRegex.test(directory));
     });
   }
+
+  /**
+   * generates route/permalink based on fileName
+   * @param {string} fileName file of interest
+   * @return {string} generated route
+   */
+  function generateRouteFromFileName(fileName) {
+    const slugRegex = /(\d{4})-(\d{2})-\d{2}-([A-z-]+).md/;
+    const matches = fileName.match(slugRegex);
+    return 'posts/' + matches.slice(1).join('/');
+  }
+}
+
+/**
+ * Generates meta object for injection into Vue components
+ * Meta object is to be used for dynamic data loading
+ * @param {string} [basePath=postBasePath] path to _posts directory
+ * @return {object} meta object
+ */
+function generateBlogMeta(basePath = postsBasePath) {
+  const postsByYearPromise = collateMetaPostsDirs(basePath);
+  return postsByYearPromise.then((postsByYear) => {
+    const posts = Object.values(postsByYear).flat();
+    const postsPaths = posts.map((post) => post.path);
+    const years = Object.keys(postsByYear);
+    const routes = posts.map((post) => post.route);
+    return { basePath, years, postsByYear, postFullPaths: postsPaths, routes };
+  });
 }
 
 module.exports = {
   getContentsFromPath,
   getDirectoriesFromFilePath,
   getFilesFromFilePath,
-  collateMetaFromPostsDir,
+  collateMetaPostsDirs,
+  generateBlogMeta,
 };
