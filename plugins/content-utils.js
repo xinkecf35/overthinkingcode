@@ -1,6 +1,8 @@
-const fs = require('fs');
-
-const postsBasePath = '~/assets/_posts';
+let fs = {};
+if (process.server) {
+  fs = require('fs');
+}
+const postsBasePath = './assets/_posts';
 
 /**
  * Returns all contents given filePath
@@ -151,11 +153,8 @@ function getRoutesForGenerate(postDirectoryPath) {
   return generateBlogMeta(postDirectoryPath).then((meta) => meta.routes);
 }
 
-export {
-  getContentsFromPath,
-  getDirectoriesFromFilePath,
-  getFilesFromFilePath,
-  collateMetaPostsDirs,
-  generateBlogMeta,
-  getRoutesForGenerate,
+export default (app) => {
+  return (app.blogMeta = generateBlogMeta('./assets/_posts'));
 };
+
+export { getRoutesForGenerate, generateBlogMeta };

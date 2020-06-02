@@ -26,10 +26,14 @@
 
 <script>
 import Logo from '~/components/Logo.vue';
+import { generateBlogMeta } from '~/plugins/content-utils';
 
 export default {
   components: {
     Logo,
+  },
+  asyncData(context) {
+    return generateBlogMeta();
   },
 };
 </script>
