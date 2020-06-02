@@ -67,6 +67,15 @@ export default {
     },
   },
   /*
+   ** sitemap configuration
+   */
+  sitemap: {
+    hostname: 'https://overthinkingcode.net',
+    routes() {
+      return getRoutesForGenerate('./assets/_posts');
+    },
+  },
+  /*
    ** Generate configuration
    */
   generate: {
