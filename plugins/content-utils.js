@@ -93,8 +93,9 @@ function collateMetaPostsDirs(basePath) {
     years.forEach((year, i) => {
       const posts = markdownFiles[i];
       postsMeta[year] = posts.map((post) => ({
-        path: basePath + '/' + year + '/' + post,
         route: generateRouteFromFileName(post),
+        slug: post,
+        path: `${year}/${post}`,
       }));
     });
     return postsMeta;
@@ -135,12 +136,13 @@ function generateBlogMeta(basePath = postsBasePath) {
   const postsByYearPromise = collateMetaPostsDirs(basePath);
   return postsByYearPromise.then((postsByYear) => {
     const posts = Object.values(postsByYear).flat();
-    const postsPaths = posts.map((post) => post.path);
+    const postsSlugs = posts.map((post) => post.slug);
     const years = Object.keys(postsByYear);
     const routes = posts.map((post) => post.route);
-    const postMap = {};
-    routes.forEach((route, idx) => (postMap[route] = postsPaths[idx]));
-    return { basePath, years, postsByYear, routes, posts: postMap };
+    const slugs = posts.map((post) => post.slug);
+    const postSlugMap = {};
+    routes.forEach((route, idx) => (postSlugMap[route] = postsSlugs[idx]));
+    return { basePath, years, postsByYear, routes, slugs, posts, postSlugMap };
   });
 }
 

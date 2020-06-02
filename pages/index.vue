@@ -1,45 +1,40 @@
 <template>
   <div class="container">
     <div>
-      <logo />
-      <h1 class="title">
-        Overthinking Code
-      </h1>
-      <h2 class="subtitle">
-        Source for Overthinking Code
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <ul class="posts-list">
+        <li v-for="route in routes" :key="route.id">
+          {{ route }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue';
 import { generateBlogMeta } from '~/plugins/content-utils';
 
 export default {
-  components: {
-    Logo,
-  },
+  components: {},
   asyncData(context) {
-    return generateBlogMeta();
+    return generateBlogMeta().then((data) => {
+      const cardData = data.posts.map((post) =>
+        require(`~/assets/_posts/${post.path}`)
+      );
+      data.cardData = cardData;
+      return data;
+    });
   },
 };
 </script>
 
 <style lang="scss">
 @import '@/assets/styles/global_variables.scss';
+
+.posts-list {
+  ul {
+    list-style: none;
+  }
+}
 
 .title {
   font-family: $header-font-stack;
