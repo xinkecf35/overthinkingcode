@@ -1,4 +1,5 @@
 import Mode from 'frontmatter-markdown-loader/mode';
+import { getRoutesForGenerate } from './plugins/content-utils';
 
 export default {
   mode: 'universal',
@@ -26,14 +27,14 @@ export default {
    ** Global CSS
    */
   css: [
-    '@/assets/styles/fonts.scss',
-    '@/assets/styles/global_variables.scss',
-    '@/assets/styles/normalize.css',
+    '~/assets/styles/fonts.scss',
+    '~/assets/styles/global_variables.scss',
+    '~/assets/styles/normalize.css',
   ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/content-utils.js', mode: 'server' }],
+  plugins: [{ src: '@/plugins/content-utils.js', mode: 'server' }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -54,10 +55,25 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
-  /**
+  /*
+   ** router configuration
+   */
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '/posts/:year/:month:/:slug',
+        component: resolve(__dirname, 'pages/posts/_post.vue'),
+      });
+    },
+  },
+  /*
    ** Generate configuration
    */
-  generate: {},
+  generate: {
+    routes() {
+      return getRoutesForGenerate('./assets/_posts');
+    },
+  },
   /*
    ** Build configuration
    */

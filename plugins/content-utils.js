@@ -119,7 +119,7 @@ function collateMetaPostsDirs(basePath) {
   function generateRouteFromFileName(fileName) {
     const slugRegex = /(\d{4})-(\d{2})-\d{2}-([A-z-]+).md/;
     const matches = fileName.match(slugRegex);
-    return 'posts/' + matches.slice(1).join('/');
+    return '/posts/' + matches.slice(1).join('/');
   }
 }
 
@@ -142,10 +142,20 @@ function generateBlogMeta(basePath = postsBasePath) {
   });
 }
 
-module.exports = {
+/**
+ * Returns an array of routes for posts dynamic route.
+ * @param {string} postDirectoryPath directory containing markdown posts
+ * @return {string[]} Promise, array of pre-resolved routes
+ */
+function getRoutesForGenerate(postDirectoryPath) {
+  return generateBlogMeta(postDirectoryPath).then((meta) => meta.routes);
+}
+
+export {
   getContentsFromPath,
   getDirectoriesFromFilePath,
   getFilesFromFilePath,
   collateMetaPostsDirs,
   generateBlogMeta,
+  getRoutesForGenerate,
 };

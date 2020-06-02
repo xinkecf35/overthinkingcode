@@ -25,12 +25,12 @@ export default {
     };
   },
   created() {
-    const markdown = require(this.postFilePath);
-    const postMeta = markdown.attributes;
-    this.author = postMeta.author;
-    this.date = postMeta.date;
-    this.tags = postMeta.tags;
-    this.title = postMeta.title;
+    // const markdown = require(this.postFilePath);
+    // const postMeta = markdown.attributes;
+    // this.author = postMeta.author;
+    // this.date = postMeta.date;
+    // this.tags = postMeta.tags;
+    // this.title = postMeta.title;
   },
 };
 </script>
