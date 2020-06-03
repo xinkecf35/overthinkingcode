@@ -95,7 +95,7 @@ export default {
         test: /\.md$/,
         loader: 'frontmatter-markdown-loader',
         options: {
-          mode: [Mode.META, Mode.VUE_COMPONENT],
+          mode: [Mode.META, Mode.BODY],
           markdownIt: {
             html: true,
             linkify: true,

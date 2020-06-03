@@ -13,13 +13,33 @@
 <script>
 import { generateBlogMeta } from '~/plugins/content-utils';
 
+/**
+ * Helper function to extract an excerpt from markdown
+ * @param {string} body raw markdown
+ * @return {string} stripped markdown excerpt
+ */
+function extractExcerpt(body) {
+  const removeMd = require('remove-markdown');
+  return removeMd(body)
+    .slice(0, 240)
+    .replace(/\s+/g, ' ');
+}
+
 export default {
   components: {},
   asyncData(context) {
     return generateBlogMeta().then((data) => {
-      const cardData = data.posts.map((post) =>
-        require(`~/assets/_posts/${post.path}`)
-      );
+      const cardData = data.posts.map((post) => {
+        const fm = require(`~/assets/_posts/${post.path}`);
+        const excerpt = extractExcerpt(fm.body);
+        return {
+          path: post.path,
+          route: post.route,
+          excerpt,
+          attributes: fm.attributes,
+          markdown: fm.body,
+        };
+      });
       data.cardData = cardData;
       return data;
     });
