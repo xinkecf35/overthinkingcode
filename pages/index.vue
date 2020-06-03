@@ -2,8 +2,13 @@
   <div class="container">
     <div>
       <ul class="posts-list">
-        <li v-for="route in routes" :key="route.id">
-          {{ route }}
+        <li v-for="card in cardData" :key="card.path">
+          <post-card
+            :title="card.title"
+            :excerpt="card.excerpt"
+            :date="card.attributes.date"
+            :tags="card.attributes.tags"
+          />
         </li>
       </ul>
     </div>
@@ -11,6 +16,7 @@
 </template>
 
 <script>
+import PostCard from '~/components/PostCard';
 import { generateBlogMeta } from '~/plugins/content-utils';
 
 /**
@@ -26,7 +32,7 @@ function extractExcerpt(body) {
 }
 
 export default {
-  components: {},
+  components: { PostCard },
   asyncData(context) {
     return generateBlogMeta().then((data) => {
       const cardData = data.posts.map((post) => {
@@ -48,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/global_variables.scss';
+@import '~/assets/styles/global_variables.scss';
 
 .posts-list {
   ul {
