@@ -133,13 +133,13 @@ function generateBlogMeta(basePath = postsBasePath) {
   const postsByYearPromise = collateMetaPostsDirs(basePath);
   return postsByYearPromise.then((postsByYear) => {
     const posts = Object.values(postsByYear).flat();
-    const postsSlugs = posts.map((post) => post.slug);
+    const postPaths = posts.map((post) => post.path);
     const years = Object.keys(postsByYear);
     const routes = posts.map((post) => post.route);
     const slugs = posts.map((post) => post.slug);
-    const postSlugMap = {};
-    routes.forEach((route, idx) => (postSlugMap[route] = postsSlugs[idx]));
-    return { basePath, years, postsByYear, routes, slugs, posts, postSlugMap };
+    const routePathMap = {};
+    routes.forEach((route, idx) => (routePathMap[route] = postPaths[idx]));
+    return { basePath, years, postsByYear, routes, slugs, posts, routePathMap };
   });
 }
 

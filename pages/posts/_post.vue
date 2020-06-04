@@ -7,30 +7,26 @@
         <li v-for="tag in tags" :key="tag">{{ tag }}</li>
       </ul>
     </div>
-    <component :is="markdownComponent" />
+    <div>{{ markdown }}</div>
   </div>
 </template>
 <script>
+import { generateBlogMeta } from '~/plugins/content-utils';
+
 export default {
-  props: {
-    postFilePath: { type: String, required: true },
-  },
   asyncData(context) {
-    return {
-      author: '',
-      date: '',
-      markdownComponent: null,
-      tags: [],
-      title: '',
-    };
-  },
-  created() {
-    // const markdown = require(this.postFilePath);
-    // const postMeta = markdown.attributes;
-    // this.author = postMeta.author;
-    // this.date = postMeta.date;
-    // this.tags = postMeta.tags;
-    // this.title = postMeta.title;
+    if (process.server) {
+      return generateBlogMeta().then((data) => {
+        const route = context.route.path;
+        const fm = require(`~/assets/_posts/${data.routePathMap[route]}`);
+        return {
+          date: fm.attributes.date,
+          markdown: fm.body,
+          tags: fm.attributes.tags,
+          title: fm.attributes.title,
+        };
+      });
+    }
   },
 };
 </script>
