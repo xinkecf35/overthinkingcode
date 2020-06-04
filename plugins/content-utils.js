@@ -1,7 +1,4 @@
-let fs = {};
-if (process.server) {
-  fs = require('fs');
-}
+const fs = require('fs');
 const postsBasePath = './assets/_posts';
 
 /**

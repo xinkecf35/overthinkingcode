@@ -1,18 +1,17 @@
 <template>
-  <div class="container">
-    <div>
-      <ul class="posts-list">
-        <li v-for="card in cardData" :key="card.path">
-          <post-card
-            :title="card.title"
-            :excerpt="card.excerpt"
-            :date="card.attributes.date"
-            :tags="card.attributes.tags"
-          />
-        </li>
-      </ul>
-    </div>
-  </div>
+  <main id="posts-carousel">
+    <ul class="posts-list">
+      <li v-for="card in cardData" :key="card.path">
+        <post-card
+          :date="card.attributes.date"
+          :excerpt="card.excerpt"
+          :page="card.route"
+          :tags="card.attributes.tags"
+          :title="card.attributes.title"
+        />
+      </li>
+    </ul>
+  </main>
 </template>
 
 <script>
@@ -27,8 +26,9 @@ import { generateBlogMeta } from '~/plugins/content-utils';
 function extractExcerpt(body) {
   const removeMd = require('remove-markdown');
   return removeMd(body)
-    .slice(0, 240)
-    .replace(/\s+/g, ' ');
+    .split(/\s+/g)
+    .slice(0, 140)
+    .join(' ');
 }
 
 export default {
@@ -56,28 +56,13 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/global_variables.scss';
 
+#posts-carousel {
+  flex: 2 1 auto;
+  overflow: auto;
+}
+
 .posts-list {
-  ul {
-    list-style: none;
-  }
-}
-
-.title {
-  font-family: $header-font-stack;
-  display: block;
-  font-weight: 800;
-  font-size: 100px;
-  color: $primary-color;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-family: $copy-font-stack;
-  font-weight: 300;
-  font-size: 42px;
-  color: $secondary-color;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+  list-style: none;
 }
 
 .links {

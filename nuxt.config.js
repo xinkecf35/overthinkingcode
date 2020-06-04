@@ -1,5 +1,6 @@
 import Mode from 'frontmatter-markdown-loader/mode';
 import { getRoutesForGenerate } from './plugins/content-utils';
+import { isEmptyBindingElement } from 'typescript';
 
 export default {
   mode: 'universal',
@@ -98,6 +99,9 @@ export default {
           mode: [Mode.META, Mode.BODY],
         },
       });
+      config.node = {
+        fs: 'empty',
+      }
     },
   },
 };
