@@ -61,7 +61,7 @@ export default {
   router: {
     extendRoutes(routes, resolve) {
       routes.push({
-        path: '/posts/:year/:month:/:slug',
+        path: '/posts/:year/:month/:slug',
         component: resolve(__dirname, 'pages/posts/_post.vue'),
       });
     },
@@ -96,10 +96,6 @@ export default {
         loader: 'frontmatter-markdown-loader',
         options: {
           mode: [Mode.META, Mode.BODY],
-          markdownIt: {
-            html: true,
-            linkify: true,
-          },
         },
       });
     },
