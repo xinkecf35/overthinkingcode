@@ -1,6 +1,6 @@
 <template>
   <main id="posts-carousel">
-    <ul class="posts-list">
+    <!-- <ul class="posts-list">
       <li v-for="card in cardData" :key="card.path">
         <post-card
           :date="card.attributes.date"
@@ -10,46 +10,34 @@
           :title="card.attributes.title"
         />
       </li>
-    </ul>
+    </ul> -->
   </main>
 </template>
 
 <script>
-import PostCard from '~/components/PostCard';
-import { generateBlogMeta } from '~/plugins/content-utils';
-
-/**
- * Helper function to extract an excerpt from markdown
- * @param {string} body raw markdown
- * @return {string} stripped markdown excerpt
- */
-function extractExcerpt(body) {
-  const removeMd = require('remove-markdown');
-  return removeMd(body)
-    .split(/\s+/g)
-    .slice(0, 140)
-    .join(' ');
-}
+import { mapState } from 'vuex';
+// import PostCard from '~/components/PostCard';
 
 export default {
-  components: { PostCard },
+  // components: { PostCard },
   asyncData(context) {
-    return generateBlogMeta().then((data) => {
-      const cardData = data.posts.map((post) => {
-        const fm = require(`~/assets/_posts/${post.path}`);
-        const excerpt = extractExcerpt(fm.body);
-        return {
-          path: post.path,
-          route: post.route,
-          excerpt,
-          attributes: fm.attributes,
-          markdown: fm.body,
-        };
-      });
-      data.cardData = cardData;
-      return data;
-    });
+    // return generateBlogMeta().then((data) => {
+    //   const cardData = data.posts.map((post) => {
+    //     const fm = require(`~/assets/_posts/${post.path}`);
+    //     const excerpt = extractExcerpt(fm.body);
+    //     return {
+    //       path: post.path,
+    //       route: post.route,
+    //       excerpt,
+    //       attributes: fm.attributes,
+    //       markdown: fm.body,
+    //     };
+    //   });
+    //   data.cardData = cardData;
+    //   return data;
+    // });
   },
+  computed: mapState(['routes', 'posts']),
 };
 </script>
 
