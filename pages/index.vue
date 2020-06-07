@@ -21,7 +21,7 @@ import PostCard from '~/components/PostCard';
 export default {
   components: { PostCard },
   computed: mapState({
-    routes: (state) => state.routes,
+    routes: 'routes',
     cards: (state) => state.postCards.cards,
   }),
 };

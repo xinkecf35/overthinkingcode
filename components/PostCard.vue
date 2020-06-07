@@ -46,7 +46,7 @@ export default {
     },
   },
   computed: {
-    formattedDate(val) {
+    formattedDate() {
       return DateTime.fromISO(this.date).toISODate();
     },
   },

@@ -50,40 +50,30 @@ import { generateBlogMeta } from '~/plugins/content-utils';
  }
  */
 
-// return generateBlogMeta().then((data) => {
-//   const cardData = data.posts.map((post) => {
-//     const fm = require(`~/assets/_posts/${post.path}`);
-//     const excerpt = extractExcerpt(fm.body);
-//     return {
-//       path: post.path,
-//       route: post.route,
-//       excerpt,
-//       attributes: fm.attributes,
-//       markdown: fm.body,
-//     };
-//   });
-//   data.cardData = cardData;
-//   return data;
-// });
-
 export const state = () => {
-  return { posts: [], routes: [], tags: [] };
+  return { postsByYear: [], routes: [], tags: [], years: [] };
 };
 
 export const mutations = {
   addRoutes(state, routes) {
     state.routes.push(routes);
   },
-  addPosts(state, paths) {
-    state.posts.push(paths);
+  addPostsByYear(state, paths) {
+    state.postsByYear.push(paths);
+  },
+  setYears(state, years) {
+    state.years = years;
   },
 };
 
 export const actions = {
   nuxtServerInit({ commit, dispatch }, { req }) {
     return generateBlogMeta().then((data) => {
+      commit('addPostsByYear', data.postsByYear);
       commit('addRoutes', data.routes);
+      commit('setYears', data.years);
       dispatch('postCards/addPostCards', data.posts);
+      dispatch('articles/addPosts', data.posts);
     });
   },
 };
