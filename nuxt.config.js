@@ -93,7 +93,7 @@ export default {
      */
     extend(config, ctx) {
       config.module.rules.push({
-        test: /\.md$/,
+        test: /posts\/.+\.md$/,
         loader: 'frontmatter-markdown-loader',
         options: {
           mode: [Mode.META, Mode.BODY],

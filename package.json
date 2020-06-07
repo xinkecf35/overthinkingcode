@@ -16,12 +16,12 @@
     "@nuxtjs/router-extras": "^1.1.0",
     "@nuxtjs/sitemap": "^2.3.0",
     "luxon": "^1.24.1",
+    "markdown-it": "^11.0.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
-    "@nuxtjs/markdownit": "^1.2.9",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
     "eslint-config-google": "^0.14.0",

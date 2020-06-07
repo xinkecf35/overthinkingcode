@@ -59,9 +59,9 @@ export default {
 .index-post-card {
   font-family: $copy-font-stack;
   margin: 0.5em 0em 2em 0em;
-  text-align: left;
+  text-align: justify;
   h2 {
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: 700;
     font-family: $header-font-stack;
   }

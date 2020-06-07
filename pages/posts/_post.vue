@@ -7,7 +7,8 @@
         <li v-for="tag in tags" :key="tag">{{ tag }}</li>
       </ul>
     </div>
-    <div>{{ content }}</div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <main v-html="content"></main>
   </div>
 </template>
 <script>
@@ -25,8 +26,9 @@ export default {
       return DateTime.fromISO(this.date).toISODate();
     },
     content() {
+      const md = require('markdown-it')('default');
       const contentMap = this.$store.state.articles.contentMap;
-      return contentMap[this.route].content;
+      return md.render(contentMap[this.route].content);
     },
     date() {
       const contentMap = this.$store.state.articles.contentMap;
@@ -44,4 +46,11 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+#post-main {
+  overflow: auto;
+  main {
+    margin-bottom: 2em;
+  }
+}
+</style>

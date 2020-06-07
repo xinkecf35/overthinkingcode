@@ -31,10 +31,11 @@ export default {
 @import '~/assets/styles/global_variables.scss';
 
 #posts-carousel {
+  display: flex;
   flex: 2 1 auto;
   overflow: auto;
+  margin: 1em 2em 1em 2em;
 }
-
 .posts-list {
   list-style: none;
 }
