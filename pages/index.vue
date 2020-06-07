@@ -1,7 +1,7 @@
 <template>
   <main id="posts-carousel">
-    <!-- <ul class="posts-list">
-      <li v-for="card in cardData" :key="card.path">
+    <ul class="posts-list">
+      <li v-for="card in cards" :key="card.path">
         <post-card
           :date="card.attributes.date"
           :excerpt="card.excerpt"
@@ -10,34 +10,20 @@
           :title="card.attributes.title"
         />
       </li>
-    </ul> -->
+    </ul>
   </main>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-// import PostCard from '~/components/PostCard';
+import PostCard from '~/components/PostCard';
 
 export default {
-  // components: { PostCard },
-  asyncData(context) {
-    // return generateBlogMeta().then((data) => {
-    //   const cardData = data.posts.map((post) => {
-    //     const fm = require(`~/assets/_posts/${post.path}`);
-    //     const excerpt = extractExcerpt(fm.body);
-    //     return {
-    //       path: post.path,
-    //       route: post.route,
-    //       excerpt,
-    //       attributes: fm.attributes,
-    //       markdown: fm.body,
-    //     };
-    //   });
-    //   data.cardData = cardData;
-    //   return data;
-    // });
-  },
-  computed: mapState(['routes', 'posts']),
+  components: { PostCard },
+  computed: mapState({
+    routes: (state) => state.routes,
+    cards: (state) => state.postCards.cards,
+  }),
 };
 </script>
 

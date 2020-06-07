@@ -80,10 +80,10 @@ export const mutations = {
 };
 
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
+  nuxtServerInit({ commit, dispatch }, { req }) {
     return generateBlogMeta().then((data) => {
       commit('addRoutes', data.routes);
-      commit('addPosts', data.posts);
+      dispatch('postCards/addPostCards', data.posts);
     });
   },
 };
