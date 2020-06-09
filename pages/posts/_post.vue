@@ -26,7 +26,10 @@ export default {
       return DateTime.fromISO(this.date).toISODate();
     },
     content() {
-      const md = require('markdown-it')('default');
+      const md = require('markdown-it')('default').use(
+        require('markdown-it-container'),
+        'code-snippet'
+      );
       const contentMap = this.$store.state.articles.contentMap;
       return md.render(contentMap[this.route].content);
     },
@@ -48,9 +51,10 @@ export default {
 </script>
 <style lang="scss">
 #post-main {
+  margin: 1em 4em 2em 2em;
   overflow: auto;
   main {
-    margin-bottom: 2em;
+    text-align: left;
   }
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div id="nav-wrapper">
-    <h1>
-      Overthinking Code
-    </h1>
+    <picture>
+      <source type="image/svg+xml" srcset="~/assets/images/logo-alt.svg" />
+      <source
+        srcset="~/assets/images/logo@2x.png 2x, ~/assets/images/logo@2x.png 3x"
+      />
+      <img srcset="~/assets/images/logo-alt.png" alt="logo" />
+    </picture>
     <nav>
       <ul>
         <li>Home</li>
@@ -23,8 +27,9 @@ export default {};
 #nav-wrapper {
   background-color: $primary-color;
   color: $default-white;
-  flex-basis: 250px;
   height: 100vh;
+  min-width: 16%;
+  flex: 1 0 auto;
   h1 {
     font-family: $header-font-stack;
   }
@@ -34,6 +39,9 @@ export default {};
       font-family: $copy-font-stack;
       font-size: 1.5em;
     }
+  }
+  img {
+    margin: 1.5em;
   }
 }
 </style>
