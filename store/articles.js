@@ -1,13 +1,12 @@
 export const state = () => {
-  return { contentMap: {} };
+  return {};
 };
 
 export const mutations = {
   addContentFromPosts(state, posts) {
-    const contentMap = state.contentMap;
     if (process.server) {
       if (Array.isArray(posts)) {
-        addPostsContentMap(posts, contentMap);
+        addPostsContentMap(posts, state);
       }
     }
   },

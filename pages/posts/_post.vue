@@ -30,20 +30,20 @@ export default {
         require('markdown-it-container'),
         'code-snippet'
       );
-      const contentMap = this.$store.state.articles.contentMap;
+      const contentMap = this.$store.state.articles;
       return md.render(contentMap[this.route].content);
     },
     date() {
-      const contentMap = this.$store.state.articles.contentMap;
+      const contentMap = this.$store.state.articles;
       const date = contentMap[this.route].date;
       return DateTime.fromISO(date).toISODate();
     },
     tags() {
-      const contentMap = this.$store.state.articles.contentMap;
+      const contentMap = this.$store.state.articles;
       return contentMap[this.route].tags;
     },
     title() {
-      const contentMap = this.$store.state.articles.contentMap;
+      const contentMap = this.$store.state.articles;
       return contentMap[this.route].title;
     },
   },

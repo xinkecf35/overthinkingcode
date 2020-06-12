@@ -48,7 +48,7 @@ html {
   display: flex;
   flex-direction: column wrap;
   justify-content: space-between;
-  text-align: center;
+  text-align: left;
   background-color: $default-white;
   position: fixed;
   top: 0;
