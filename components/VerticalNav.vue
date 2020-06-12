@@ -9,9 +9,9 @@
     </picture>
     <nav>
       <ul>
-        <li>Home</li>
-        <li>Tags</li>
-        <li>About</li>
+        <li><nuxt-link to="/">Home</nuxt-link></li>
+        <li><nuxt-link to="/tags">Tags</nuxt-link></li>
+        <li><nuxt-link to="/about">About</nuxt-link></li>
       </ul>
     </nav>
   </div>
@@ -30,6 +30,16 @@ export default {};
   height: 100vh;
   min-width: 16%;
   flex: 1 0 auto;
+  a {
+    color: $default-white;
+    line-height: 1.5em;
+    margin: 0.5em 0 0.25em 0em;
+    padding: 0.25 0em 0.125em 0em;
+    text-decoration: none;
+    &:hover {
+      border-bottom: 4px solid $secondary-color;
+    }
+  }
   h1 {
     font-family: $header-font-stack;
   }

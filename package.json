@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/router-extras": "^1.1.0",
     "@nuxtjs/sitemap": "^2.3.0",
     "luxon": "^1.24.1",
     "markdown-it": "^11.0.0",
