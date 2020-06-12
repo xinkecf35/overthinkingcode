@@ -22,7 +22,8 @@ export default {
   components: { PostCard },
   computed: mapState({
     routes: 'routes',
-    cards: (state) => state.postCards.cards,
+    cards: (state) => state.postCards,
+    tags: (state) => state.tags,
   }),
 };
 </script>

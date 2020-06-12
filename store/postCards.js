@@ -12,16 +12,14 @@ function extractExcerpt(body) {
 }
 
 export const state = () => {
-  return {
-    cards: [],
-  };
+  return [];
 };
 
 export const mutations = {
   addCards(state, cards) {
     if (Array.isArray(cards)) {
       cards.forEach((card) => {
-        state.cards.push(card);
+        state.push(card);
       });
     }
   },

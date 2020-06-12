@@ -1,62 +1,16 @@
 import { generateBlogMeta } from '~/plugins/content-utils';
 
-/* Reference for data, remove before commit
- data: {
-   cardData: [
-     {
-       attributes: {},
-       excerpt: '',
-       markdown: '',
-       route: '',
-       path: '',
-     },
-     ...
-   ],
-   posts: [
-     {
-       path: '',
-       route: '',
-       slug: '',
-     },
-     ...
-   ],
-   postsByYear: [
-     'year': [
-       {
-         post: '',
-         route: '',
-         slug: '',
-       }
-       ...
-     ],
-     ...
-   ],
-   routePathMap: {
-     'route': 'path',
-     ...
-   }
-   routes: [
-     'page/route/slug',
-     ...
-   ],
-   slug: [
-     'slug',
-     ...
-   ],
-   years: [
-     '1970',
-     ...
-   ]
- }
- */
-
 export const state = () => {
-  return { postsByYear: [], routes: [], tags: [], years: [] };
+  return { postsByYear: [], routes: [], years: [] };
 };
 
 export const mutations = {
   addRoutes(state, routes) {
-    state.routes.push(routes);
+    if (Array.isArray(routes)) {
+      state.routes = state.routes.concat(routes);
+    } else {
+      state.routes.push(routes);
+    }
   },
   addPostsByYear(state, paths) {
     state.postsByYear.push(paths);
@@ -74,6 +28,7 @@ export const actions = {
       commit('setYears', data.years);
       dispatch('postCards/addPostCards', data.posts);
       dispatch('articles/addPosts', data.posts);
+      dispatch('tags/addTags', data.posts);
     });
   },
 };
