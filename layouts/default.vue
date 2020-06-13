@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <vertical-nav />
-    <nuxt />
+    <div id="content-wrapper">
+      <nuxt />
+    </div>
   </div>
 </template>
 <script>
@@ -53,5 +55,11 @@ html {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+#content-wrapper {
+  flex: 2 1 auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 </style>

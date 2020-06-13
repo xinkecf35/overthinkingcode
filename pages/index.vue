@@ -33,9 +33,8 @@ export default {
 
 #posts-carousel {
   display: flex;
-  flex: 2 1 auto;
-  overflow: auto;
-  margin: 1em 2em 1em 2em;
+  margin: 1em 0 2em 2em;
+  width: 80%;
 }
 .posts-list {
   list-style: none;
