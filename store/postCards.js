@@ -11,6 +11,19 @@ function extractExcerpt(body) {
     .join(' ');
 }
 
+/**
+ * Custom sort function for posts, sort by descending
+ * Basically operates on dates
+ * @param {object} a first post to compare
+ * @param {object} b first post to compare
+ * @return {number} difference between the two dates
+ */
+function comparePostByDate(a, b) {
+  const dateA = new Date(a.attributes.date);
+  const dateB = new Date(b.attributes.date);
+  return dateB - dateA;
+}
+
 export const state = () => {
   return [];
 };
@@ -22,6 +35,9 @@ export const mutations = {
         state.push(card);
       });
     }
+  },
+  sortCards(state) {
+    state.sort(comparePostByDate);
   },
 };
 
@@ -40,6 +56,7 @@ export const actions = {
         };
       });
       commit('addCards', cards);
+      commit('sortCards');
     }
   },
 };

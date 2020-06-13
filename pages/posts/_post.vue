@@ -34,12 +34,14 @@ export default {
       return DateTime.fromISO(this.date).toISODate();
     },
     content() {
-      const md = require('markdown-it')('default').use(
-        require('markdown-it-container'),
-        'code-snippet'
-      );
+      const md = require('markdown-it')({
+        langPrefix: 'post-content',
+        linkify: true,
+        typographer: true,
+      }).use(require('markdown-it-container'), 'code-snippet');
       const contentMap = this.$store.state.articles;
-      return md.render(contentMap[this.route].content);
+      const content = contentMap[this.route].content;
+      return md.render(content);
     },
     date() {
       const contentMap = this.$store.state.articles;
