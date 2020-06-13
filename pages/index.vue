@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/global_variables.scss';
+@import '@/assets/styles/global-variables.scss';
 
 #posts-carousel {
   display: flex;

@@ -17,8 +17,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~assets/styles/global_variables.scss';
-@import '~assets/styles/fonts.scss';
+@import '@/assets/styles/global-variables.scss';
+@import '@/assets/styles/fonts.scss';
 
 html {
   font-family: $copy-font-stack;
@@ -35,6 +35,14 @@ html {
     color: $default-white;
     background-color: $default-black;
   }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $header-font-stack;
+  }
 }
 
 *,
@@ -47,6 +55,7 @@ html {
 .container {
   margin: 0 auto;
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column wrap;
   justify-content: space-between;
@@ -60,6 +69,6 @@ html {
 #content-wrapper {
   flex: 2 1 auto;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>

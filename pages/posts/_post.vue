@@ -1,15 +1,23 @@
 <template>
-  <div id="post-main">
-    <h2>{{ title }}</h2>
-    <div class="post-meta">
-      <span>{{ date }}</span>
-      <ul>
-        <li v-for="tag in tags" :key="tag">{{ tag }}</li>
-      </ul>
-    </div>
-    <!-- eslint-disable-next-line vue/no-v-html -->
-    <main v-html="content"></main>
-  </div>
+  <main id="post-main">
+    <article>
+      <h1>{{ title }}</h1>
+      <div class="post-meta">
+        <div class="post-meta-info">
+          <span>Published:</span>
+          <span>{{ date }}</span>
+        </div>
+        <div class="post-meta-info">
+          <span>Tags:</span>
+          <ul>
+            <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+          </ul>
+        </div>
+      </div>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <section v-html="content"></section>
+    </article>
+  </main>
 </template>
 <script>
 import { DateTime } from 'luxon';
@@ -50,11 +58,42 @@ export default {
 };
 </script>
 <style lang="scss">
+@import '@/assets/styles/global-variables.scss';
+
 #post-main {
   margin: 1em 4em 2em 2em;
-  overflow: auto;
   main {
     text-align: left;
+  }
+  h1 {
+    font-size: 3em;
+    font-weight: 700;
+  }
+}
+
+.post-meta {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  span {
+    min-width: 1em;
+    padding: 1em 0.5em 1em 0em;
+  }
+  ul {
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    flex-direction: row;
+    min-width: 1em;
+    li {
+      padding: 1em 0.5em 1em 0em;
+    }
+  }
+
+  .post-meta-info {
+    display: flex;
   }
 }
 </style>

@@ -22,13 +22,14 @@ export default {};
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/global_variables.scss';
+@import '@/assets/styles/global-variables.scss';
 
 #nav-wrapper {
   background-color: $primary-color;
   color: $default-white;
   height: 100vh;
   min-width: 16%;
+  max-width: 20%;
   flex: 1 0 auto;
   a {
     color: $default-white;

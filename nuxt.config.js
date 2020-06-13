@@ -28,7 +28,7 @@ export default {
    */
   css: [
     '~/assets/styles/fonts.scss',
-    '~/assets/styles/global_variables.scss',
+    '~/assets/styles/global-variables.scss',
     '~/assets/styles/normalize.css',
   ],
   /*

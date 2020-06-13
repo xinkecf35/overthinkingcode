@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/global_variables.scss';
+@import '@/assets/styles/global-variables.scss';
 
 .index-post-card {
   font-family: $copy-font-stack;
