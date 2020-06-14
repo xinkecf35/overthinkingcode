@@ -62,7 +62,7 @@ export default {
   text-align: left;
   h2 {
     font-size: 2.5em;
-    font-weight: 700;
+    font-weight: 800;
     font-family: $header-font-stack;
   }
   p {
