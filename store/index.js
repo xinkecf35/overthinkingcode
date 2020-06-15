@@ -18,6 +18,16 @@ export const mutations = {
   setYears(state, years) {
     state.years = years;
   },
+  setColorScheme(state, mode) {
+    state.darkColorMode = mode;
+  },
+  getPreferredColorScheme(state) {
+    if (!process.server) {
+      state.darkColorMode =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+  },
 };
 
 export const actions = {

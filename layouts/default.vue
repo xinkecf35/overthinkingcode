@@ -1,18 +1,24 @@
 <template>
   <div class="container">
     <vertical-nav />
-    <div id="content-wrapper">
+    <div id="content-wrapper" :class="{ dark: darkColorMode }">
       <nuxt />
     </div>
   </div>
 </template>
 <script>
+import { mapMutations, mapState } from 'vuex';
 import VerticalNav from '@/components/VerticalNav.vue';
 
 export default {
   components: {
     VerticalNav,
   },
+  computed: mapState(['darkColorMode']),
+  mounted() {
+    this.getPreferredColorScheme();
+  },
+  methods: mapMutations(['getPreferredColorScheme']),
 };
 </script>
 
