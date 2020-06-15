@@ -7,7 +7,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Overthinking Code',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -30,6 +30,7 @@ export default {
     '~/assets/styles/fonts.scss',
     '~/assets/styles/global-variables.scss',
     '~/assets/styles/normalize.css',
+    '~/node_modules/highlight.js/scss/atom-one-dark-reasonable.scss',
   ],
   /*
    ** Plugins to load before mounting the App

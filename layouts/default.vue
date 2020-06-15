@@ -57,7 +57,7 @@ html {
   height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column wrap;
+  flex-direction: row wrap;
   justify-content: space-between;
   text-align: left;
   background-color: $default-white;
@@ -67,6 +67,9 @@ html {
 }
 
 #content-wrapper {
+  display: flex;
+  flex-direction: row wrap;
+  justify-content: center;
   flex: 2 1 auto;
   overflow-x: hidden;
   overflow-y: auto;

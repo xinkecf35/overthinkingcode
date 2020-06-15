@@ -32,12 +32,12 @@ export default {
 @import '@/assets/styles/global-variables.scss';
 
 #posts-carousel {
-  display: flex;
-  margin: 1em 0 2em 2em;
+  box-sizing: border-box;
   width: 80%;
 }
 .posts-list {
   list-style: none;
+  padding: 0;
 }
 
 .links {

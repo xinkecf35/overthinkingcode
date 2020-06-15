@@ -35,10 +35,13 @@ export default {
     },
     content() {
       const md = require('markdown-it')({
-        langPrefix: 'post-content',
         linkify: true,
         typographer: true,
-      }).use(require('markdown-it-container'), 'code-snippet');
+      }).use(require('markdown-it-highlightjs'), {
+        auto: true,
+        code: true,
+        register: null,
+      });
       const contentMap = this.$store.state.articles;
       const content = contentMap[this.route].content;
       return md.render(content);
@@ -57,19 +60,57 @@ export default {
       return contentMap[this.route].title;
     },
   },
+  head() {
+    return {
+      title: `${this.title} | Overthinking Code`,
+    };
+  },
 };
 </script>
 <style lang="scss">
+@import '@/node_modules/highlight.js/scss/atom-one-dark-reasonable.scss';
 @import '@/assets/styles/global-variables.scss';
 
 #post-main {
-  margin: 1em 4em 2em 2em;
+  box-sizing: border-box;
+  font-size: 18px;
+  margin: 1em;
+  width: 80%;
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+  }
   main {
     text-align: left;
   }
   h1 {
-    font-size: 3em;
+    font-size: 2.75em;
     font-weight: 800;
+    margin: 0.75em 0 0.25em 0;
+  }
+  h2 {
+    font-size: 2.25em;
+    font-weight: 700;
+    margin: 0.5em 0 0.5em 0;
+  }
+  h3 {
+    font-size: 1.75em;
+    font-weight: 600;
+  }
+  img {
+    max-width: 500px;
+    max-height: 500px;
+    margin: 0 auto;
+  }
+  p {
+    margin-bottom: 0.8em;
+  }
+  pre {
+    white-space: pre-wrap;
+  }
+  .hljs {
+    // background-color: $default-black;
+    color: $default-white;
   }
 }
 
@@ -77,7 +118,7 @@ export default {
   align-items: baseline;
   display: flex;
   flex-direction: row;
-  font-size: 18px;
+  margin-bottom: 1em;
   span {
     min-width: 1em;
     padding: 1em 0.5em 1em 0em;
