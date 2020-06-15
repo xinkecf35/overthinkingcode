@@ -1,7 +1,7 @@
 import { generateBlogMeta } from '~/plugins/content-utils';
 
 export const state = () => {
-  return { postsByYear: [], routes: [], years: [] };
+  return { postsByYear: [], routes: [], years: [], darkColorMode: false };
 };
 
 export const mutations = {

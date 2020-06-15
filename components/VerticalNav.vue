@@ -28,11 +28,12 @@ export default {};
   background-color: $primary-color;
   color: $default-white;
   height: 100vh;
-  min-width: 16%;
-  max-width: 20%;
-  flex: 1 0 auto;
+  width: 20%;
+  max-width: 320px;
+  flex: 0 0 auto;
   a {
     color: $default-white;
+    font-weight: 700;
     line-height: 1.5em;
     margin: 0.5em 0 0.25em 0em;
     padding: 0.25 0em 0.125em 0em;

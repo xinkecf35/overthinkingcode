@@ -31,10 +31,6 @@ html {
   box-sizing: border-box;
   background-color: $default-white;
   color: $default-black;
-  .dark {
-    color: $default-white;
-    background-color: $default-black;
-  }
   h1,
   h2,
   h3,
@@ -42,6 +38,17 @@ html {
   h5,
   h6 {
     font-family: $header-font-stack;
+  }
+  a {
+    font-family: $header-font-stack;
+    color: $primary-color;
+  }
+}
+.dark {
+  color: $default-white;
+  background-color: $default-black;
+  a {
+    color: $secondary-color;
   }
 }
 

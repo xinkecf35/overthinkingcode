@@ -76,6 +76,7 @@ export default {
   font-size: 18px;
   margin: 1em;
   width: 80%;
+  max-width: 1024px;
   code {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 16px;
@@ -98,18 +99,19 @@ export default {
     font-weight: 600;
   }
   img {
+    display: block;
     max-width: 500px;
     max-height: 500px;
     margin: 0 auto;
   }
   p {
     margin-bottom: 0.8em;
+    line-height: 1.4em;
   }
   pre {
     white-space: pre-wrap;
   }
   .hljs {
-    // background-color: $default-black;
     color: $default-white;
   }
 }

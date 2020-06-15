@@ -1,8 +1,10 @@
 <template>
   <div class="index-post-card">
-    <nuxt-link :to="page">
-      <h2>{{ title }}</h2>
-    </nuxt-link>
+    <h2>
+      <nuxt-link :to="page">
+        {{ title }}
+      </nuxt-link>
+    </h2>
     <div class="index-post-card-meta">
       <div class="card-meta-info">
         <span>Published:</span>
@@ -60,6 +62,12 @@ export default {
   font-family: $copy-font-stack;
   margin: 0.5em 0em 2em 0em;
   text-align: left;
+  a {
+    text-decoration: none;
+    &:hover {
+      border-bottom: 4px solid $secondary-color;
+    }
+  }
   h2 {
     font-size: 2.5em;
     font-weight: 800;

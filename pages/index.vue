@@ -34,6 +34,8 @@ export default {
 #posts-carousel {
   box-sizing: border-box;
   width: 80%;
+  margin-top: 1em;
+  max-width: 1024px;
 }
 .posts-list {
   list-style: none;
