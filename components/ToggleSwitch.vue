@@ -37,8 +37,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/global-variables.scss';
-
 .toggle-control {
   align-items: center;
   box-sizing: border-box;

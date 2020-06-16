@@ -29,8 +29,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/global-variables.scss';
-
 #posts-carousel {
   box-sizing: border-box;
   width: 80%;

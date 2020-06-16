@@ -23,9 +23,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/global-variables.scss';
-@import '@/assets/styles/fonts.scss';
-
 html {
   font-family: $copy-font-stack;
   font-size: 16px;

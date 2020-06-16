@@ -31,8 +31,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/global-variables.scss';
-
 #nav-wrapper {
   background-color: $primary-color;
   color: $default-white;

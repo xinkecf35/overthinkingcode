@@ -27,8 +27,6 @@ export default {
    ** Global CSS
    */
   css: [
-    '~/assets/styles/fonts.scss',
-    '~/assets/styles/global-variables.scss',
     '~/assets/styles/normalize.css',
     '~/node_modules/highlight.js/scss/atom-one-dark-reasonable.scss',
   ],
@@ -42,6 +40,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources',
   ],
   /*
    ** Nuxt.js modules
@@ -75,6 +74,9 @@ export default {
     routes() {
       return getRoutesForGenerate('./assets/_posts');
     },
+  },
+  styleResources: {
+    scss: ['~/assets/styles/_fonts.scss', '~/assets/styles/_variables.scss'],
   },
   /*
    ** Generate configuration

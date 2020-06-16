@@ -68,9 +68,6 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '@/node_modules/highlight.js/scss/atom-one-dark-reasonable.scss';
-@import '@/assets/styles/global-variables.scss';
-
 #post-main {
   box-sizing: border-box;
   font-size: 18px;
