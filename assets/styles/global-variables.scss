@@ -16,3 +16,19 @@ $secondary-color-alt: #4DB8E2;
 $mobile-max-width: 768px;
 $tablet-max-width: 960px;
 $desktop-large-width: 1200px;
+
+@mixin dark-scheme {
+  color: $default-white;
+  background-color: $default-black;
+  a {
+    color: $secondary-color;
+  }
+}
+
+@mixin light-scheme {
+  color: $default-black;
+  background-color: $default-white;
+  a {
+    color: $primary-color;
+  }
+}

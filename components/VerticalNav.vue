@@ -16,7 +16,7 @@
     </nav>
     <ul id="site-controls">
       <li>
-        <ToggleSwitch :setting="'darkColorMode'">Night Node </ToggleSwitch>
+        <toggle-switch :setting="'prefersDarkMode'">Night Node </toggle-switch>
       </li>
     </ul>
   </div>

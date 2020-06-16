@@ -1,7 +1,13 @@
 import { generateBlogMeta } from '~/plugins/content-utils';
 
 export const state = () => {
-  return { postsByYear: [], routes: [], years: [], darkColorMode: false };
+  return {
+    postsByYear: [],
+    routes: [],
+    years: [],
+    prefersDarkMode: null,
+    colorScheme: null,
+  };
 };
 
 export const mutations = {
@@ -19,13 +25,28 @@ export const mutations = {
     state.years = years;
   },
   setColorScheme(state, mode) {
-    state.darkColorMode = mode;
+    state.prefersDarkMode = mode;
+    mode ? (state.colorScheme = 'dark') : (state.colorScheme = 'light');
+    localStorage.setItem('color-mode', state.colorScheme);
   },
   getPreferredColorScheme(state) {
     if (!process.server) {
-      state.darkColorMode =
+      const storedColorMode = localStorage.getItem('color-mode');
+      // eslint-disable-next-line no-console
+      console.log(storedColorMode);
+      if (storedColorMode !== null) {
+        state.colorScheme = storedColorMode;
+        state.colorScheme === 'dark'
+          ? (state.prefersDarkMode = true)
+          : (state.prefersDarkMode = false);
+        return;
+      }
+      if (
         window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        state.prefersDarkMode = true;
+      }
     }
   },
 };

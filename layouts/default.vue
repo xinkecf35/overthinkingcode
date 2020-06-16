@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <vertical-nav />
-    <div id="content-wrapper" :class="{ dark: darkColorMode }">
+    <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''">
       <nuxt />
     </div>
   </div>
@@ -14,7 +14,7 @@ export default {
   components: {
     VerticalNav,
   },
-  computed: mapState(['darkColorMode']),
+  computed: mapState(['colorScheme']),
   mounted() {
     this.getPreferredColorScheme();
   },
@@ -35,8 +35,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background-color: $default-white;
-  color: $default-black;
   h1,
   h2,
   h3,
@@ -50,14 +48,6 @@ html {
     color: $primary-color;
   }
 }
-.dark {
-  color: $default-white;
-  background-color: $default-black;
-  a {
-    color: $secondary-color;
-  }
-}
-
 *,
 *:before,
 *:after {
@@ -74,9 +64,25 @@ html {
   justify-content: space-between;
   text-align: left;
   background-color: $default-white;
+  color: $default-black;
   position: fixed;
   top: 0;
   left: 0;
+
+  @media (prefers-color-scheme: dark) {
+    @include dark-scheme;
+  }
+  @media (prefers-color-scheme: light) {
+    @include light-scheme;
+  }
+  .dark {
+    @include dark-scheme;
+    transition: 0.25s ease-in;
+  }
+  .light {
+    @include light-scheme;
+    transition: 0.25s ease-in;
+  }
 }
 
 #content-wrapper {

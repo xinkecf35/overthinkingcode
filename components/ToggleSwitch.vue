@@ -26,10 +26,9 @@ export default {
       return this.$store.state[this.setting];
     },
   },
+  // TODO: need to write more generically
   methods: {
     toggleColorScheme() {
-      // eslint-disable-next-line no-console
-      console.log('test');
       this.setColorScheme(!this.state);
     },
     ...mapMutations(['setColorScheme']),
@@ -68,7 +67,7 @@ export default {
     left: 2px;
     height: 24px;
     width: 24px;
-    transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     &.active {
       transform: translateX(26px);
     }
