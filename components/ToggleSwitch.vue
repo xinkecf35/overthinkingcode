@@ -1,6 +1,6 @@
 <template>
   <div class="toggle-control">
-    <slot></slot>
+    <span><slot></slot></span>
     <div
       class="toggle-switch"
       :class="{ active: state }"
