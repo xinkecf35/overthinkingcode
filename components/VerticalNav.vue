@@ -16,7 +16,10 @@
     </nav>
     <ul id="site-controls">
       <li>
-        <toggle-switch :setting="'prefersDarkMode'">Night Node </toggle-switch>
+        <toggle-switch :setting="'prefersDarkMode'">Night Node</toggle-switch>
+      </li>
+      <li>
+        <toggle-switch :setting="'useSystemScheme'">Use System</toggle-switch>
       </li>
     </ul>
   </div>

@@ -4,7 +4,7 @@
     <div
       class="toggle-switch"
       :class="{ active: state }"
-      @click.capture="toggleColorScheme()"
+      @click.capture="toggleState()"
     >
       <div class="toggle" :class="{ active: state }"></div>
     </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -28,10 +28,15 @@ export default {
   },
   // TODO: need to write more generically
   methods: {
-    toggleColorScheme() {
-      this.setColorScheme(!this.state);
+    toggleState() {
+      const mutationMap = {
+        prefersDarkMode: this.setColorMode,
+        useSystemScheme: this.setUseSystemScheme,
+      };
+      const newState = !this.state;
+      mutationMap[this.setting](newState);
     },
-    ...mapMutations(['setColorScheme']),
+    ...mapActions(['setUseSystemScheme', 'setColorMode']),
   },
 };
 </script>
@@ -43,31 +48,36 @@ export default {
   display: inline-flex;
   flex-direction: row;
   font-size: 18px;
+  height: 28px;
+  margin: 0.25em 0 0.25em 0;
+  max-width: 200px;
+  position: relative;
+  width: 90%;
 }
 
 .toggle-switch {
-  width: 54px;
-  height: 28px;
+  width: 42px;
+  height: 24px;
   background-color: $default-white;
   border-radius: 14px;
-  margin-left: 1.5em;
-  position: relative;
+  position: absolute;
   transition: 0.5s linear;
+  right: 0px;
   &.active {
     background-color: $secondary-color;
   }
   .toggle {
     background-color: $default-white;
     border: 1px solid $default-black;
-    border-radius: 12px;
+    border-radius: 11px;
     position: absolute;
-    top: 2px;
-    left: 2px;
-    height: 24px;
-    width: 24px;
+    top: 1px;
+    left: 1px;
+    height: 22px;
+    width: 22px;
     transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     &.active {
-      transform: translateX(26px);
+      transform: translateX(18px);
     }
   }
 }
