@@ -72,7 +72,7 @@ export default {
   box-sizing: border-box;
   font-size: 18px;
   margin: 1em;
-  width: 80%;
+  width: 85%;
   max-width: 1024px;
   code {
     font-family: 'IBM Plex Mono', monospace;
@@ -110,6 +110,8 @@ export default {
   }
   .hljs {
     color: $default-white;
+    border-radius: 0.5em;
+    box-shadow: 0px 4px 8px hsla(0, 0, 15%, 0.6);
   }
 }
 

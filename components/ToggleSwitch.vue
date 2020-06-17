@@ -59,6 +59,7 @@ export default {
   height: 24px;
   background-color: $default-white;
   border-radius: 14px;
+  box-shadow: 0px 2px 4px hsla(0, 0, 18%, 0.4);
   position: absolute;
   transition: 0.5s linear;
   right: 0px;
@@ -67,7 +68,7 @@ export default {
   }
   .toggle {
     background-color: $default-white;
-    border: 1px solid $default-black;
+    box-shadow: 1px 1px 2px $default-black;
     border-radius: 11px;
     position: absolute;
     top: 1px;
@@ -76,6 +77,7 @@ export default {
     width: 22px;
     transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     &.active {
+      box-shadow: -1px 1px 2px $default-black;
       transform: translateX(18px);
     }
   }
