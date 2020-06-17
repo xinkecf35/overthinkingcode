@@ -12,12 +12,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   props: {
+    // Determines what Vuex property we're operating over
     setting: {
       type: String,
+      required: true,
+    },
+    // Correct mutation/action that operates over said Vuex property
+    action: {
+      type: Function,
       required: true,
     },
   },
@@ -26,17 +30,12 @@ export default {
       return this.$store.state[this.setting];
     },
   },
-  // TODO: need to write more generically
   methods: {
     toggleState() {
-      const mutationMap = {
-        prefersDarkMode: this.setColorMode,
-        useSystemScheme: this.setUseSystemScheme,
-      };
-      const newState = !this.state;
-      mutationMap[this.setting](newState);
+      // So that future me is not confused: this takes the passed in
+      // function object and calls it with negation of the current state.
+      this.action(!this.state);
     },
-    ...mapActions(['setUseSystemScheme', 'setColorMode']),
   },
 };
 </script>

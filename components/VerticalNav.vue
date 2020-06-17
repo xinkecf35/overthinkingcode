@@ -15,21 +15,36 @@
       </ul>
     </nav>
     <ul id="site-controls">
-      <li>
-        <toggle-switch :setting="'prefersDarkMode'">Night Node</toggle-switch>
-      </li>
-      <li>
-        <toggle-switch :setting="'useSystemScheme'">Use System</toggle-switch>
+      <!-- Future me: if you're confused, look at ToggleSwitch Comments -->
+      <li v-for="setting in settings" :key="setting">
+        <toggle-switch :setting="setting" :action="actions[setting]">
+          {{ labels[setting] }}
+        </toggle-switch>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import ToggleSwitch from '~/components/ToggleSwitch.vue';
 
 export default {
   components: { ToggleSwitch },
+  data() {
+    return {
+      actions: {
+        prefersDarkMode: this.setColorMode,
+        useSystemScheme: this.setUseSystemScheme,
+      },
+      settings: ['prefersDarkMode', 'useSystemScheme'],
+      labels: {
+        prefersDarkMode: 'Dark Mode',
+        useSystemScheme: 'Use System',
+      },
+    };
+  },
+  methods: mapActions(['setUseSystemScheme', 'setColorMode']),
 };
 </script>
 
