@@ -53,7 +53,7 @@ export default {
   background-color: $primary-color;
   color: $default-white;
   flex: 0 0 auto;
-  height: 100vh;
+  height: 100%;
   list-style: none;
   max-width: 320px;
   width: 20%;
@@ -78,6 +78,20 @@ export default {
   }
   ul {
     list-style: none;
+  }
+  @media screen and (max-width: $tablet-max-width - 1) {
+    $menu-width: 240px;
+    position: fixed;
+    height: calc(100% - $mobile-header-height);
+    left: -$menu-width;
+    top: $mobile-header-height;
+    transition: 0.5s ease-in-out;
+    visibility: hidden;
+    width: $menu-width;
+    &.active {
+      transform: translateX($menu-width);
+      visibility: visible;
+    }
   }
 }
 #site-controls {

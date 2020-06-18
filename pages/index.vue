@@ -37,6 +37,7 @@ export default {
 }
 .posts-list {
   list-style: none;
+  margin-bottom: 20vh;
   padding: 0;
 }
 

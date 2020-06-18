@@ -11,10 +11,12 @@ $copy-font-stack: 'Roboto Slab', 'Lucida Bright', Palatino, serif;
 $primary-color-alt: #0C557F;
 $secondary-color-alt: #4DB8E2;
 
-// Breakpoings
+// Breakpoints
 $mobile-max-width: 768px;
-$tablet-max-width: 960px;
+$tablet-max-width: 1024px;
 $desktop-large-width: 1200px;
+
+$mobile-header-height: 48px;
 
 @mixin dark-scheme {
   color: $default-white;

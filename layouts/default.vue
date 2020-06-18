@@ -1,7 +1,11 @@
 <template>
-  <div class="container">
-    <vertical-nav />
-    <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''">
+  <div class="container" :class="colorScheme !== null ? colorScheme : ''">
+    <vertical-nav :class="{ active: mobileReveal }" />
+    <div id="mobile-menu">
+      <button @click="mobileReveal = !mobileReveal">Reveal</button>
+    </div>
+    <!-- <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''"> -->
+    <div id="content-wrapper">
       <nuxt />
     </div>
   </div>
@@ -13,6 +17,11 @@ import VerticalNav from '@/components/VerticalNav.vue';
 export default {
   components: {
     VerticalNav,
+  },
+  data() {
+    return {
+      mobileReveal: false,
+    };
   },
   computed: mapState(['colorScheme']),
   mounted() {
@@ -45,6 +54,7 @@ html {
     color: $primary-color;
   }
 }
+
 *,
 *:before,
 *:after {
@@ -72,11 +82,11 @@ html {
   @media (prefers-color-scheme: light) {
     @include light-scheme;
   }
-  .dark {
+  &.dark {
     @include dark-scheme;
     transition: 0.25s ease-in;
   }
-  .light {
+  &.light {
     @include light-scheme;
     transition: 0.25s ease-in;
   }
@@ -89,5 +99,20 @@ html {
   flex: 2 1 auto;
   overflow-x: hidden;
   overflow-y: auto;
+  @media screen and (max-width: $tablet-max-width - 1) {
+    margin-top: calc(#{$mobile-header-height} + 0.5em);
+  }
+}
+
+#mobile-menu {
+  background-color: $primary-color;
+  height: $mobile-header-height;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  @media screen and (min-width: $tablet-max-width) {
+    display: none;
+  }
 }
 </style>

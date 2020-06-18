@@ -57,9 +57,9 @@ export default {
 .toggle-switch {
   width: 42px;
   height: 24px;
-  background-color: $default-white;
+  background-color: hsl(0, 0, 75%);
   border-radius: 14px;
-  box-shadow: 0px 2px 4px hsla(0, 0, 18%, 0.4);
+  box-shadow: 2px 0px 4px hsla(0, 0, 18%, 0.4);
   position: absolute;
   transition: 0.5s linear;
   right: 0px;
@@ -69,15 +69,15 @@ export default {
   .toggle {
     background-color: $default-white;
     box-shadow: 1px 1px 2px $default-black;
-    border-radius: 11px;
+    border-radius: 10px;
     position: absolute;
-    top: 1px;
-    left: 1px;
-    height: 22px;
-    width: 22px;
-    transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    top: 2px;
+    left: 2px;
+    height: 20px;
+    width: 20px;
+    transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     &.active {
-      box-shadow: -1px 1px 2px $default-black;
+      box-shadow: -1px 1px 2px $default-gray;
       transform: translateX(18px);
     }
   }

@@ -72,8 +72,11 @@ export default {
   box-sizing: border-box;
   font-size: 18px;
   margin: 1em;
-  width: 85%;
   max-width: 1024px;
+  width: 80%;
+  article {
+    margin-bottom: 20vh;
+  }
   code {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 16px;
