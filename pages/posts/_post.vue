@@ -114,7 +114,7 @@ export default {
   .hljs {
     color: $default-white;
     border-radius: 0.5em;
-    box-shadow: 0px 4px 8px hsla(0, 0, 15%, 0.6);
+    box-shadow: 0px 4px 10px hsla(0, 0, 12%, 0.75);
   }
 }
 

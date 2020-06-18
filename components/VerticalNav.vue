@@ -51,6 +51,7 @@ export default {
 <style lang="scss">
 #nav-wrapper {
   background-color: $primary-color;
+  box-shadow: 0 4px 8px hsla(0, 0, 18%, 0.5);
   color: $default-white;
   flex: 0 0 auto;
   height: 100%;
@@ -61,12 +62,9 @@ export default {
   width: $desktop-menu-width;
   a {
     color: $default-white;
-    font-family: $copy-font-stack;
     font-size: 1.5em;
-    font-weight: 500;
-    line-height: 1.5em;
-    margin: 0.5em 0 0.25em 0em;
-    padding: 0.25 0em 0.125em 0em;
+    font-weight: 600;
+    line-height: 1.6em;
     text-decoration: none;
     &:hover {
       border-bottom: 4px solid $secondary-color;
@@ -80,6 +78,9 @@ export default {
   }
   ul {
     list-style: none;
+    li {
+      margin: 0em 0 0.25em 0em;
+    }
   }
   @media screen and (max-width: $tablet-max-width - 1) {
     $menu-width: 240px;

@@ -3,8 +3,11 @@
     <span><slot></slot></span>
     <div
       class="toggle-switch"
+      role="button"
+      tabindex="0"
       :class="{ active: state }"
       @click.capture="toggleState()"
+      @keyup.enter="toggleState"
     >
       <div class="toggle" :class="{ active: state }"></div>
     </div>
@@ -48,7 +51,7 @@ export default {
   flex-direction: row;
   font-size: 18px;
   height: 28px;
-  margin: 0.25em 0 0.25em 0;
+  margin: 0.25em 0 0 0;
   max-width: 200px;
   position: relative;
   width: 90%;
@@ -59,7 +62,7 @@ export default {
   height: 24px;
   background-color: hsl(0, 0, 75%);
   border-radius: 14px;
-  box-shadow: 2px 0px 4px hsla(0, 0, 18%, 0.4);
+  box-shadow: 0px 4px 6px hsla(0, 0, 18%, 0.6);
   position: absolute;
   transition: 0.5s linear;
   right: 0px;
