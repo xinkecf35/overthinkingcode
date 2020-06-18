@@ -82,7 +82,7 @@ export default {
   @media screen and (max-width: $tablet-max-width - 1) {
     $menu-width: 240px;
     position: fixed;
-    height: calc(100% - $mobile-header-height);
+    height: calc(100% - #{$mobile-header-height});
     left: -$menu-width;
     top: $mobile-header-height;
     transition: 0.5s ease-in-out;
