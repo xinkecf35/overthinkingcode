@@ -14,9 +14,11 @@ $secondary-color-alt: #4DB8E2;
 // Breakpoints
 $mobile-max-width: 768px;
 $tablet-max-width: 1024px;
-$desktop-large-width: 1200px;
+$desktop-large-width: 1600px;
 
 $mobile-header-height: 48px;
+$desktop-menu-width: 260px;
+$desktop-large-menu-width: 280px;
 
 @mixin dark-scheme {
   color: $default-white;

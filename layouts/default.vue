@@ -4,8 +4,7 @@
     <div id="mobile-menu">
       <button @click="mobileReveal = !mobileReveal">Reveal</button>
     </div>
-    <!-- <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''"> -->
-    <div id="content-wrapper">
+    <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''">
       <nuxt />
     </div>
   </div>
@@ -64,7 +63,7 @@ html {
 
 .container {
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row wrap;
@@ -72,9 +71,6 @@ html {
   text-align: left;
   background-color: $default-white;
   color: $default-black;
-  position: fixed;
-  top: 0;
-  left: 0;
 
   @media (prefers-color-scheme: dark) {
     @include dark-scheme;
@@ -82,25 +78,32 @@ html {
   @media (prefers-color-scheme: light) {
     @include light-scheme;
   }
-  &.dark {
-    @include dark-scheme;
-    transition: 0.25s ease-in;
-  }
-  &.light {
-    @include light-scheme;
-    transition: 0.25s ease-in;
-  }
+}
+
+.dark {
+  @include dark-scheme;
+  transition: 0.25s ease-in;
+}
+.light {
+  @include light-scheme;
+  transition: 0.25s ease-in;
 }
 
 #content-wrapper {
   display: flex;
   flex-direction: row wrap;
   justify-content: center;
-  flex: 2 1 auto;
-  overflow-x: hidden;
-  overflow-y: auto;
+  min-height: 100%;
+  position: absolute;
+  right: 0;
+  width: calc(100% - #{$desktop-menu-width});
+  z-index: 100;
   @media screen and (max-width: $tablet-max-width - 1) {
-    margin-top: calc(#{$mobile-header-height} + 0.5em);
+    margin-top: calc(#{$mobile-header-height});
+    width: 100%;
+  }
+  @media screen and (min-width: $desktop-large-width) {
+    width: calc(100% - #{$desktop-large-menu-width});
   }
 }
 
@@ -111,6 +114,7 @@ html {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 800;
   @media screen and (min-width: $tablet-max-width) {
     display: none;
   }

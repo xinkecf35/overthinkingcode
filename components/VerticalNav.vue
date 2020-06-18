@@ -54,9 +54,11 @@ export default {
   color: $default-white;
   flex: 0 0 auto;
   height: 100%;
+  left: 0;
   list-style: none;
-  max-width: 320px;
-  width: 20%;
+  position: fixed;
+  top: 0;
+  width: $desktop-menu-width;
   a {
     color: $default-white;
     font-family: $copy-font-stack;
@@ -88,10 +90,14 @@ export default {
     transition: 0.5s ease-in-out;
     visibility: hidden;
     width: $menu-width;
+    z-index: 800;
     &.active {
       transform: translateX($menu-width);
       visibility: visible;
     }
+  }
+  @media screen and (min-width: $desktop-large-width) {
+    width: $desktop-large-menu-width;
   }
 }
 #site-controls {
