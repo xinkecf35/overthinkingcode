@@ -38,6 +38,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~/assets/styles/_variables.scss';
+
 html {
   font-family: $copy-font-stack;
   font-size: 16px;
@@ -87,6 +89,14 @@ html {
   @media (prefers-color-scheme: light) {
     @include light-scheme;
   }
+  &.dark {
+    @include dark-scheme;
+    transition: 0.25s ease-in;
+  }
+  &.light {
+    @include light-scheme;
+    transition: 0.25s ease-in;
+  }
 }
 
 .dark {
@@ -113,6 +123,21 @@ html {
   }
   @media screen and (min-width: $desktop-large-width) {
     width: calc(100% - #{$desktop-large-menu-width});
+  }
+  @media (prefers-color-scheme: dark) {
+    @include dark-scheme;
+  }
+  @media (prefers-color-scheme: light) {
+    @include light-scheme;
+  }
+
+  &.dark {
+    @include dark-scheme;
+    transition: 0.25s ease-in;
+  }
+  &.light {
+    @include light-scheme;
+    transition: 0.25s ease-in;
   }
 }
 
