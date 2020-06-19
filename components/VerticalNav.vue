@@ -51,7 +51,7 @@ export default {
 <style lang="scss">
 #nav-wrapper {
   background-color: $primary-color;
-  box-shadow: 0 4px 8px hsla(0, 0, 18%, 0.5);
+  box-shadow: 0 4px 12px hsla(0, 0, 15%, 0.6);
   color: $default-white;
   flex: 0 0 auto;
   height: 100%;

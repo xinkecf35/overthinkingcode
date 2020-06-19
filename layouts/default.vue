@@ -2,7 +2,7 @@
   <div class="container" :class="colorScheme !== null ? colorScheme : ''">
     <vertical-nav :class="{ active: mobileReveal }" />
     <div id="mobile-menu">
-      <button @click="mobileReveal = !mobileReveal">Reveal</button>
+      <menu-button id="menu-button" :toggle="toggleMobileMenu" />
     </div>
     <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''">
       <nuxt />
@@ -11,10 +11,12 @@
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex';
+import MenuButton from '~/components/MenuButton';
 import VerticalNav from '@/components/VerticalNav.vue';
 
 export default {
   components: {
+    MenuButton,
     VerticalNav,
   },
   data() {
@@ -26,7 +28,12 @@ export default {
   mounted() {
     this.getPreferredColorScheme();
   },
-  methods: mapMutations(['getPreferredColorScheme']),
+  methods: {
+    toggleMobileMenu() {
+      this.mobileReveal = !this.mobileReveal;
+    },
+    ...mapMutations(['getPreferredColorScheme']),
+  },
 };
 </script>
 
@@ -62,15 +69,17 @@ html {
 }
 
 .container {
-  margin: 0 auto;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row wrap;
-  justify-content: space-between;
-  text-align: left;
   background-color: $default-white;
   color: $default-black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: space-between;
+  margin: 0 auto;
+  overflow-x: hidden;
+  text-align: left;
+  width: 100%;
 
   @media (prefers-color-scheme: dark) {
     @include dark-scheme;
@@ -105,6 +114,12 @@ html {
   @media screen and (min-width: $desktop-large-width) {
     width: calc(100% - #{$desktop-large-menu-width});
   }
+}
+
+#menu-button {
+  position: absolute;
+  top: 8px;
+  left: 12px;
 }
 
 #mobile-menu {

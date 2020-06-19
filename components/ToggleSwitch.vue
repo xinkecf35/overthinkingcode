@@ -66,6 +66,7 @@ export default {
   position: absolute;
   transition: 0.5s linear;
   right: 0px;
+
   &.active {
     background-color: $secondary-color;
   }
