@@ -53,7 +53,9 @@ export default {
   background-color: $primary-color;
   box-shadow: 0 4px 12px hsla(0, 0, 15%, 0.6);
   color: $default-white;
-  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-direction: nowrap;
   height: 100%;
   left: 0;
   list-style: none;
@@ -82,6 +84,27 @@ export default {
       margin: 0em 0 0.25em 0em;
     }
   }
+  @media screen and (max-width: $mobile-max-width) {
+    font-size: 14px;
+  }
+  // Special breakpoint for landscape large phones
+  // Added due to concerns regarding branding/art-directions
+  @media screen and (max-width: 850px) and (orientation: landscape) {
+    overflow-y: scroll;
+    picture {
+      order: 3;
+      height: 120px;
+      align-self: center;
+    }
+    img {
+      height: 100%;
+      margin: 0;
+      justify-self: center;
+    }
+    nav {
+      order: 1;
+    }
+  }
   @media screen and (max-width: $tablet-max-width - 1) {
     $menu-width: 240px;
     position: fixed;
@@ -104,5 +127,10 @@ export default {
 #site-controls {
   list-style: none;
   margin-top: 1.5em;
+  order: 2;
+  @media screen and (orientation: landscape) {
+    margin-top: 0.75em;
+    margin-bottom: 0.25em;
+  }
 }
 </style>

@@ -34,6 +34,9 @@ export default {
   width: 80%;
   margin-top: 1em;
   max-width: 1024px;
+  @media screen and (max-width: $mobile-max-width) {
+    width: 90%;
+  }
 }
 .posts-list {
   list-style: none;

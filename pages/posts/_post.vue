@@ -79,7 +79,7 @@ export default {
   }
   code {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 16px;
+    font-size: 0.9em;
   }
   main {
     text-align: left;
@@ -116,12 +116,18 @@ export default {
     border-radius: 0.5em;
     box-shadow: 0px 4px 10px hsla(0, 0, 12%, 0.75);
   }
+  @media screen and (max-width: $mobile-max-width) {
+    font-size: 14px;
+    width: 90%;
+  }
 }
 
 .post-meta {
   align-items: baseline;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 16px;
   margin-bottom: 1em;
   span {
     min-width: 1em;
@@ -133,9 +139,21 @@ export default {
     justify-content: flex-start;
     list-style: none;
     flex-direction: row;
+    flex-wrap: wrap;
     min-width: 1em;
     li {
       padding: 1em 0.5em 1em 0em;
+    }
+  }
+  @media screen and (max-width: $mobile-max-width) {
+    font-size: 12px;
+    span {
+      padding: 0.25em 0.25em 0.25em 0;
+    }
+    ul {
+      li {
+        padding: 0.25em 0.25em 0.25em 0;
+      }
     }
   }
 

@@ -73,7 +73,10 @@ export default {
   }
   p {
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.5em;
+    @media screen and (max-width: $mobile-max-width) {
+      overflow-wrap: break-word;
+    }
   }
 }
 
@@ -81,6 +84,7 @@ export default {
   align-items: baseline;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   font-size: 14px;
   span {
     min-width: 1em;
@@ -92,6 +96,7 @@ export default {
     justify-content: flex-start;
     list-style: none;
     flex-direction: row;
+    flex-wrap: wrap;
     min-width: 1em;
     li {
       padding: 1em 0.5em 1em 0em;
