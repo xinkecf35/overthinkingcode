@@ -3,6 +3,7 @@ import { getRoutesForGenerate } from './plugins/content-utils';
 
 export default {
   mode: 'universal',
+  target: 'static',
   /*
    ** Headers of the page
    */

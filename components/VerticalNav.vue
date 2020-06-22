@@ -3,9 +3,13 @@
     <picture>
       <source type="image/svg+xml" srcset="~/assets/images/logo-alt.svg" />
       <source
-        srcset="~/assets/images/logo@2x.png 2x, ~/assets/images/logo@2x.png 3x"
+        type="image"
+        srcset="
+          ~/assets/images/logo-alt@2x.png 2x,
+          ~/assets/images/logo-alt@3x.png 3x
+        "
       />
-      <img srcset="~/assets/images/logo-alt.png" alt="logo" />
+      <img src="~/assets/images/logo-alt@2x.png" alt="logo" />
     </picture>
     <nav>
       <ul>
@@ -55,7 +59,6 @@ export default {
   color: $default-white;
   display: flex;
   flex-direction: column;
-  flex-direction: nowrap;
   height: 100%;
   left: 0;
   list-style: none;
