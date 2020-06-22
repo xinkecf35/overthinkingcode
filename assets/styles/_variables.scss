@@ -19,6 +19,7 @@ $desktop-large-width: 1600px;
 $mobile-header-height: 48px;
 $desktop-menu-width: 260px;
 $desktop-large-menu-width: 280px;
+$content-max-width: 940px;
 
 @mixin dark-scheme {
   color: $default-white;

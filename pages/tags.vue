@@ -30,12 +30,13 @@ export default {
 <style lang="scss">
 #tags-main {
   box-sizing: border-box;
-  margin: 2em;
-  max-width: 1024px;
+  margin: 2em 0 20vh 0;
+  max-width: $content-max-width;
   text-align: left;
   width: 80%;
   h1 {
     font-size: 2.75em;
+    font-weight: 800;
   }
   ul {
     list-style: none;
@@ -45,13 +46,23 @@ export default {
   list-style: none;
   h2 {
     font-size: 1.75em;
-    line-height: 1.75em;
+    line-height: 1.85em;
+    font-weight: 700;
+    margin-bottom: 0.25em;
+    width: min-content;
+    &:hover {
+      border-bottom: 4px solid $secondary-color;
+      margin-bottom: calc(0.25em - 4px);
+    }
   }
   ul {
     font-size: 1.25em;
     height: 0;
     margin-bottom: 0.5em;
     visibility: hidden;
+    li {
+      padding: 0.25em 0 0.25em 0;
+    }
     &.active {
       height: auto;
       visibility: visible;

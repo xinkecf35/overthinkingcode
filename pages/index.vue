@@ -33,7 +33,7 @@ export default {
   box-sizing: border-box;
   width: 80%;
   margin-top: 1em;
-  max-width: 1024px;
+  max-width: $content-max-width;
   @media screen and (max-width: $mobile-max-width) {
     width: 90%;
   }

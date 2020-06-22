@@ -70,9 +70,9 @@ export default {
 <style lang="scss">
 #post-main {
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 20px;
   margin: 1em;
-  max-width: 1024px;
+  max-width: $content-max-width;
   width: 80%;
   article {
     margin-bottom: 20vh;
@@ -127,7 +127,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  font-size: 16px;
+  font-size: 0.85em;
   margin-bottom: 1em;
   span {
     min-width: 1em;

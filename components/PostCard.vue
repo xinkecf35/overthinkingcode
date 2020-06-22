@@ -72,7 +72,7 @@ export default {
     font-family: $header-font-stack;
   }
   p {
-    font-size: 16px;
+    font-size: 1.15em;
     line-height: 1.5em;
     @media screen and (max-width: $mobile-max-width) {
       overflow-wrap: break-word;
@@ -85,7 +85,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  font-size: 14px;
+  font-size: 0.9em;
   span {
     min-width: 1em;
     padding: 1em 0.5em 1em 0em;
