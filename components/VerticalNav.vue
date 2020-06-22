@@ -128,6 +128,8 @@ export default {
   }
 }
 #site-controls {
+  font-family: $header-font-stack;
+  font-weight: 600;
   list-style: none;
   margin-top: 1.5em;
   order: 2;

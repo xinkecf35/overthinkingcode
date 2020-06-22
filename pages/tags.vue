@@ -1,11 +1,13 @@
 <template>
-  <main id="tags-main">
+  <main id="tags-main" :class="getColorScheme">
     <h1>Tags</h1>
     <ul>
       <li v-for="tag in Object.keys(tags)" :key="tag">
-        <section class="tags-list">
-          <h2 @click="activeTag = tag">{{ tag }}</h2>
-          <ul :class="{ active: tag === activeTag }">
+        <section class="tags-list" :class="{ active: tag === activeTag }">
+          <h2>
+            <button type="button" @click="activeTag = tag">{{ tag }}</button>
+          </h2>
+          <ul class="tags-list" :class="{ active: tag === activeTag }">
             <li v-for="post in tags[tag]" :key="post.id">
               <nuxt-link :to="post.route">{{ post.title }} </nuxt-link>
             </li>
@@ -17,31 +19,50 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   data() {
     return { activeTag: '' };
   },
-  computed: mapState(['tags']),
+  computed: {
+    ...mapGetters(['getColorScheme']),
+    ...mapState(['tags']),
+  },
 };
 </script>
 
 <style lang="scss">
 #tags-main {
   box-sizing: border-box;
+  color: inherit;
   margin: 2em 0 20vh 0;
   max-width: $content-max-width;
   text-align: left;
   width: 80%;
+  button {
+    background-color: inherit;
+    border: none;
+    color: inherit;
+    font-weight: inherit;
+  }
   h1 {
     font-size: 2.75em;
     font-weight: 800;
   }
+  h2 {
+    color: $primary-color;
+  }
   ul {
     list-style: none;
   }
+  &.dark {
+    h2 {
+      color: $secondary-color;
+    }
+  }
 }
+
 .tags-list {
   list-style: none;
   h2 {
@@ -64,6 +85,7 @@ export default {
       padding: 0.25em 0 0.25em 0;
     }
     &.active {
+      width: 100%;
       height: auto;
       visibility: visible;
     }

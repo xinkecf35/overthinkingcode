@@ -11,6 +11,12 @@ export const state = () => {
   };
 };
 
+export const getters = {
+  getColorScheme(state) {
+    return state.colorScheme !== null ? state.colorScheme : '';
+  },
+};
+
 export const mutations = {
   addRoutes(state, routes) {
     if (Array.isArray(routes)) {

@@ -1,16 +1,16 @@
 <template>
-  <div class="container" :class="colorScheme !== null ? colorScheme : ''">
+  <div class="container" :class="getColorScheme">
     <vertical-nav :class="{ active: mobileReveal }" />
     <div id="mobile-menu">
       <menu-button id="menu-button" :toggle="toggleMobileMenu" />
     </div>
-    <div id="content-wrapper" :class="colorScheme !== null ? colorScheme : ''">
+    <div id="content-wrapper" :class="getColorScheme">
       <nuxt />
     </div>
   </div>
 </template>
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import MenuButton from '~/components/MenuButton';
 import VerticalNav from '@/components/VerticalNav.vue';
 
@@ -24,7 +24,7 @@ export default {
       mobileReveal: false,
     };
   },
-  computed: mapState(['colorScheme']),
+  computed: mapGetters(['getColorScheme']),
   mounted() {
     this.getPreferredColorScheme();
   },
@@ -97,15 +97,6 @@ html {
     @include light-scheme;
     transition: 0.25s ease-in;
   }
-}
-
-.dark {
-  @include dark-scheme;
-  transition: 0.25s ease-in;
-}
-.light {
-  @include light-scheme;
-  transition: 0.25s ease-in;
 }
 
 #content-wrapper {
