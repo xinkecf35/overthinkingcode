@@ -61,6 +61,11 @@ export default {
       color: $secondary-color;
     }
   }
+  @media (prefers-color-scheme: dark) {
+    h2 {
+      color: $secondary-color;
+    }
+  }
 }
 
 .tags-list {

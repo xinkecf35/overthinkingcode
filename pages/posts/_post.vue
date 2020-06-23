@@ -117,7 +117,7 @@ export default {
     box-shadow: 0px 4px 10px hsla(0, 0, 12%, 0.75);
   }
   @media screen and (max-width: $mobile-max-width) {
-    font-size: 14px;
+    font-size: 16px;
     width: 90%;
   }
 }

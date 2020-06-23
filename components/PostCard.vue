@@ -17,7 +17,10 @@
         </ul>
       </div>
     </div>
-    <p>{{ excerpt }} ...</p>
+    <p>{{ excerpt }}...</p>
+    <nuxt-link :to="page" class="more-link">
+      More
+    </nuxt-link>
   </div>
 </template>
 
@@ -74,9 +77,15 @@ export default {
   p {
     font-size: 1.15em;
     line-height: 1.5em;
+    margin-bottom: 0.75em;
     @media screen and (max-width: $mobile-max-width) {
       overflow-wrap: break-word;
     }
+  }
+  .more-link {
+    font-size: 1.35em;
+    font-weight: 700;
+    line-height: 1.35em;
   }
 }
 
