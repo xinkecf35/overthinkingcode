@@ -4,7 +4,7 @@
       <li v-for="card in cards" :key="card.path">
         <post-card
           :date="card.attributes.date"
-          :excerpt="card.excerpt"
+          :excerpt="card.markdown"
           :page="card.route"
           :tags="card.attributes.tags"
           :title="card.attributes.title"
