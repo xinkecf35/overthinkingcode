@@ -64,6 +64,7 @@ export default {
   margin: 0.5em 0em 2em 0em;
   text-align: left;
   a {
+    font-weight: 800;
     text-decoration: none;
     &:hover {
       border-bottom: 4px solid $secondary-color;

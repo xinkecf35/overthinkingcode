@@ -59,6 +59,8 @@ html {
   }
   a {
     font-family: $header-font-stack;
+    font-size: 1.05em;
+    font-weight: 500;
     color: $primary-color;
   }
 }

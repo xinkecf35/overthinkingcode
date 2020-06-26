@@ -97,6 +97,7 @@ export default {
   h3 {
     font-size: 1.75em;
     font-weight: 600;
+    margin: 0.25em 0 0.25em 0;
   }
   img {
     display: block;
@@ -110,6 +111,9 @@ export default {
   }
   pre {
     white-space: pre-wrap;
+  }
+  ul {
+    margin: 0.75em 0 0.75em 0.5em;
   }
   .hljs {
     color: $default-white;
@@ -159,6 +163,9 @@ export default {
 
   .post-meta-info {
     display: flex;
+    ul {
+      margin: 0 !important;
+    }
   }
 }
 </style>
