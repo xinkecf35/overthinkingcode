@@ -84,6 +84,7 @@ export default {
   text-align: left;
   text-overflow: ellipsis;
   a {
+    font-weight: 800;
     text-decoration: none;
     &:hover {
       border-bottom: 4px solid $secondary-color;
@@ -97,6 +98,7 @@ export default {
   p {
     font-size: 1.15em;
     line-height: 1.5em;
+    margin-bottom: 0.75em;
     @media screen and (max-width: $mobile-max-width) {
       overflow-wrap: break-word;
     }

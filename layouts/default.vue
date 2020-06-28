@@ -59,6 +59,8 @@ html {
   }
   a {
     font-family: $header-font-stack;
+    font-size: 1.05em;
+    font-weight: 500;
     color: $primary-color;
   }
 }
@@ -101,7 +103,7 @@ html {
 
 #content-wrapper {
   display: flex;
-  flex-direction: row wrap;
+  flex-direction: row;
   justify-content: center;
   min-height: 100%;
   position: absolute;

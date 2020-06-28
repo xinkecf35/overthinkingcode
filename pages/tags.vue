@@ -54,9 +54,16 @@ export default {
     color: $primary-color;
   }
   ul {
+    margin: 0;
+    padding: 0;
     list-style: none;
   }
   &.dark {
+    h2 {
+      color: $secondary-color;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
     h2 {
       color: $secondary-color;
     }
@@ -79,6 +86,7 @@ export default {
   ul {
     font-size: 1.25em;
     height: 0;
+    padding-left: 1.5em !important;
     margin-bottom: 0.5em;
     visibility: hidden;
     li {
