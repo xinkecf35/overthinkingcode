@@ -22,43 +22,29 @@
 <script>
 import { DateTime } from 'luxon';
 
+const md = require('markdown-it')({
+  linkify: true,
+  typographer: true,
+}).use(require('markdown-it-highlightjs'), {
+  auto: true,
+  code: true,
+  register: null,
+});
+
 export default {
-  asyncData(context) {
-    return {
-      route: context.route.path,
-    };
-  },
-  // Doing it the long way, cant get mapState to cooperate with this
-  computed: {
-    formattedDate() {
-      return DateTime.fromISO(this.date).toISODate();
-    },
-    content() {
-      const md = require('markdown-it')({
-        linkify: true,
-        typographer: true,
-      }).use(require('markdown-it-highlightjs'), {
-        auto: true,
-        code: true,
-        register: null,
-      });
-      const contentMap = this.$store.state.articles;
-      const content = contentMap[this.route].content;
-      return md.render(content);
-    },
-    date() {
-      const contentMap = this.$store.state.articles;
-      const date = contentMap[this.route].date;
-      return DateTime.fromISO(date).toISODate();
-    },
-    tags() {
-      const contentMap = this.$store.state.articles;
-      return contentMap[this.route].tags;
-    },
-    title() {
-      const contentMap = this.$store.state.articles;
-      return contentMap[this.route].title;
-    },
+  asyncData({ error, store, route }) {
+    const contentMap = store.state.articles;
+    if (typeof contentMap[route.path] === 'undefined') {
+      error({ statusCode: 404, message: 'page not found' });
+    } else {
+      const { content, date, tags, title } = contentMap[route.path];
+      return {
+        content: md.render(content),
+        date: DateTime.fromISO(date).toISODate(),
+        tags,
+        title,
+      };
+    }
   },
   head() {
     return {
@@ -96,8 +82,8 @@ export default {
   }
   h3 {
     font-size: 1.75em;
-    font-weight: 600;
-    margin: 0.25em 0 0.25em 0;
+    font-weight: 700;
+    margin: 0.5em 0 0.5em 0;
   }
   img {
     display: block;
@@ -108,6 +94,7 @@ export default {
   p {
     margin-bottom: 0.8em;
     line-height: 1.4em;
+    margin: 0.5em 0 0.5em 0;
   }
   pre {
     white-space: pre-wrap;
