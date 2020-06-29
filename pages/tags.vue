@@ -2,7 +2,7 @@
   <main id="tags-main" :class="getColorScheme">
     <h1>Tags</h1>
     <ul>
-      <li v-for="tag in Object.keys(tags)" :key="tag">
+      <li v-for="tag in Object.keys(tags)" :id="tag" :key="tag">
         <section class="tags-list" :class="{ active: tag === activeTag }">
           <h2>
             <button type="button" @click="activeTag = tag">{{ tag }}</button>
@@ -28,6 +28,15 @@ export default {
   computed: {
     ...mapGetters(['getColorScheme']),
     ...mapState(['tags']),
+  },
+  watch: {
+    '$route.query.tag': {
+      deep: true,
+      immediate: true,
+      handler(tag) {
+        this.activeTag = tag;
+      },
+    },
   },
 };
 </script>

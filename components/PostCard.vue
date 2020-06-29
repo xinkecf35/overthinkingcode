@@ -13,7 +13,11 @@
       <div class="card-meta-info">
         <span>Tags:</span>
         <ul>
-          <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+          <li v-for="tag in tags" :key="tag">
+            <nuxt-link :to="{ path: '/tags', query: { tag } }">
+              {{ tag }}
+            </nuxt-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -110,6 +114,12 @@ export default {
     min-width: 1em;
     li {
       padding: 1em 0.5em 1em 0em;
+      a {
+        font-weight: 700;
+        &:hover {
+          border-bottom: 2px solid $secondary-color;
+        }
+      }
     }
   }
 

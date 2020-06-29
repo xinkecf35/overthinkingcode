@@ -10,7 +10,11 @@
         <div class="post-meta-info">
           <span>Tags:</span>
           <ul>
-            <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+            <li v-for="tag in tags" :key="tag">
+              <nuxt-link :to="{ path: '/tags', query: { tag } }">
+                {{ tag }}
+              </nuxt-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -59,7 +63,7 @@ export default {
   font-size: 20px;
   margin: 1em;
   max-width: $content-max-width;
-  width: 80%;
+  width: $content-width;
   article {
     margin-bottom: 20vh;
   }
@@ -109,7 +113,7 @@ export default {
   }
   @media screen and (max-width: $mobile-max-width) {
     font-size: 16px;
-    width: 90%;
+    width: $content-mobile-width;
   }
 }
 
