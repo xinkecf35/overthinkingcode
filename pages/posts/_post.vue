@@ -26,24 +26,15 @@
 <script>
 import { DateTime } from 'luxon';
 
-const md = require('markdown-it')({
-  linkify: true,
-  typographer: true,
-}).use(require('markdown-it-highlightjs'), {
-  auto: true,
-  code: true,
-  register: null,
-});
-
 export default {
-  asyncData({ error, store, route }) {
+  asyncData({ $md, error, store, route }) {
     const contentMap = store.state.articles;
     if (typeof contentMap[route.path] === 'undefined') {
       error({ statusCode: 404, message: 'page not found' });
     } else {
       const { content, date, tags, title } = contentMap[route.path];
       return {
-        content: md.render(content),
+        content: $md.render(content),
         date: DateTime.fromISO(date).toISODate(),
         tags,
         title,
