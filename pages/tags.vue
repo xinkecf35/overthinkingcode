@@ -57,7 +57,6 @@ export default {
   }
   h1 {
     font-size: 2.75em;
-    font-weight: 800;
   }
   h2 {
     color: $primary-color;

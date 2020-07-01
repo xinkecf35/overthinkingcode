@@ -67,17 +67,17 @@ export default {
   }
   h1 {
     font-size: 2.75em;
-    font-weight: 800;
+    font-weight: 700;
     margin: 0.75em 0 0.25em 0;
   }
   h2 {
     font-size: 2.25em;
-    font-weight: 700;
+    font-weight: 600;
     margin: 0.5em 0 0.5em 0;
   }
   h3 {
     font-size: 1.75em;
-    font-weight: 700;
+    font-weight: 600;
     margin: 0.5em 0 0.5em 0;
   }
   img {

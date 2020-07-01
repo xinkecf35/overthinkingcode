@@ -57,6 +57,18 @@ html {
   h6 {
     font-family: $header-font-stack;
   }
+  h1,
+  h2 {
+    font-weight: 700;
+  }
+  h3,
+  h4 {
+    font-weight: 600;
+  }
+  h5,
+  h6 {
+    font-weight: 500;
+  }
   a {
     font-family: $header-font-stack;
     font-size: 1.05em;
