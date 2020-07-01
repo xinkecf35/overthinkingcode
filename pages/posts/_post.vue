@@ -87,7 +87,6 @@ export default {
     margin: 0 auto;
   }
   p {
-    margin-bottom: 0.8em;
     line-height: 1.4em;
     margin: 0.5em 0 0.5em 0;
   }
