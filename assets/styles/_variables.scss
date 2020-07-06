@@ -1,15 +1,15 @@
-$primary-color: #0C557F;
-$secondary-color: #4DB8E2;
-$default-grey: #191F19;
-$default-black: #0F0F0F;
+$primary-color: #0c557f;
+$secondary-color: #4db8e2;
+$default-grey: #282c34;
+$default-black: #0f0f0f;
 $default-gray: hsl(0, 0, 15%);
-$default-white: #FDFDFA;
-$header-font-stack: 'Muli', Verdana, Geneva, Tahoma, sans-serif;
+$default-white: #fdfdfa;
+$header-font-stack: 'Montserrat', Verdana, Geneva, Tahoma, sans-serif;
 $copy-font-stack: 'Roboto Slab', 'Lucida Bright', Palatino, serif;
 
 // Alternative colors
-$primary-color-alt: #0C557F;
-$secondary-color-alt: #4DB8E2;
+$primary-color-alt: #0c557f;
+$secondary-color-alt: #4db8e2;
 
 // Breakpoints
 $mobile-max-width: 768px;
@@ -19,6 +19,8 @@ $desktop-large-width: 1600px;
 $mobile-header-height: 48px;
 $desktop-menu-width: 260px;
 $desktop-large-menu-width: 280px;
+$content-width: 70%;
+$content-mobile-width: 90%;
 $content-max-width: 940px;
 
 @mixin dark-scheme {

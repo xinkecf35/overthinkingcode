@@ -31,11 +31,11 @@ export default {
 <style lang="scss">
 #posts-carousel {
   box-sizing: border-box;
-  width: 80%;
+  width: $content-width;
   margin-top: 1em;
   max-width: $content-max-width;
   @media screen and (max-width: $mobile-max-width) {
-    width: 90%;
+    width: $content-mobile-width;
   }
 }
 .posts-list {

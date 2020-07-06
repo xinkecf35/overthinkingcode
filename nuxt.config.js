@@ -34,7 +34,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/content-utils.js', mode: 'server' }],
+  plugins: [
+    { src: '~/plugins/content-utils.js', mode: 'server' },
+    {
+      src: '~/plugins/markdown-it.js',
+    },
+  ],
   /*
    ** Nuxt.js dev-modules
    */

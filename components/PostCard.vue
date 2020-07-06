@@ -13,7 +13,11 @@
       <div class="card-meta-info">
         <span>Tags:</span>
         <ul>
-          <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+          <li v-for="tag in tags" :key="tag">
+            <nuxt-link :to="{ path: '/tags', query: { tag } }">
+              {{ tag }}
+            </nuxt-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -64,15 +68,15 @@ export default {
   margin: 0.5em 0em 2em 0em;
   text-align: left;
   a {
-    font-weight: 800;
     text-decoration: none;
+    font-weight: inherit;
     &:hover {
       border-bottom: 4px solid $secondary-color;
     }
   }
   h2 {
     font-size: 2.5em;
-    font-weight: 800;
+    font-weight: 700;
     font-family: $header-font-stack;
   }
   p {
@@ -95,7 +99,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  font-size: 0.9em;
+  font-size: 1 em;
   span {
     min-width: 1em;
     padding: 1em 0.5em 1em 0em;
@@ -110,6 +114,12 @@ export default {
     min-width: 1em;
     li {
       padding: 1em 0.5em 1em 0em;
+      a {
+        font-weight: 600;
+        &:hover {
+          border-bottom: 2px solid $secondary-color;
+        }
+      }
     }
   }
 

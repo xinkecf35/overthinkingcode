@@ -68,7 +68,7 @@ export default {
   a {
     color: $default-white;
     font-size: 1.5em;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.6em;
     text-decoration: none;
     &:hover {
@@ -77,6 +77,7 @@ export default {
   }
   h1 {
     font-family: $header-font-stack;
+    font-weight: 500;
   }
   img {
     margin: 1.5em;
