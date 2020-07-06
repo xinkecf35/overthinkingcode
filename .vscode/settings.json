@@ -2,5 +2,6 @@
     "editor.tabSize": 2,
     "vetur.grammar.customBlocks": {
         "router": "js"
-    }
+    },
+    "editor.rulers": [80, 120],
 }
