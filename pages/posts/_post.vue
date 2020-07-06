@@ -58,6 +58,18 @@ export default {
   article {
     margin-bottom: 20vh;
   }
+  blockquote {
+    background-color: $default-grey;
+    border-radius: 0.5em;
+    box-shadow: 0px 4px 10px rgba(31, 31, 31, 0.75);
+    color: $default-white;
+    margin: 1.5em 0 1.5em 0;
+    padding: 0.5em;
+    p {
+      font-family: $header-font-stack;
+      margin: 0;
+    }
+  }
   code {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.9em;
@@ -89,8 +101,15 @@ export default {
   p {
     line-height: 1.4em;
     margin: 0.5em 0 0.5em 0;
+    code {
+      background-color: hsl(62, 55, 85);
+      border-radius: 0.25em;
+      color: $default-black;
+      padding: 0.125em 0.25em 0.125em 0.25em;
+    }
   }
   pre {
+    margin: 1.5em 0 1.5em 0;
     white-space: pre-wrap;
   }
   ul {

@@ -40,7 +40,7 @@ layer to present and manage content. I can see the need for a full featured CMS
 if you have lots of content or have many authors, but for a personal blog, it's
 overkill and bloat. The maintenance alone would pretty much guarantee that I
 would not want to write content often for the blog. Beyond that, a static
-website is cacheable and better for SEO compared against an SPA based solution
+website is cacheable and better for SEO compared against an SPA-based solution
 or Wordpress-based site with no caching configured. Now a plain HTML website
 would accomplish these things but writing long form HTML markup sucks, so a site
 generator that can use Markdown is something I am willing to maintain if it
@@ -60,8 +60,8 @@ the right boxes, and it seemed to have the best and fastest shot at actually
 accomplishing what I want.
 
 However, I ultimately settled on Nuxt for a couple reasons. One issue was
-Vuepress' philosophy "convention is better than configuration". Had I not a
-very specific vision of what I wanted the site to be, I think I would've used
+Vuepress' philosophy "convention is better than configuration". Had I not a very
+specific vision of what I wanted the site to be, I think I would've used
 Vuepress. However, due to other things I wanted to do, like use SCSS instead of
 Stylus, and a more structured `posts` directory structure, it looked like I was
 going to spend a lot more time trying to rip things out than were I to start
@@ -88,11 +88,12 @@ any routes that has dynamic route parameters would not be generated and thereby
 not be rendered. Fortunately, in the Nuxt configuration you can specify routes,
 either statically with an array of strings or more interestingly, a promise, and
 Nuxt will dutifully render those routes for you. This approach, as covered in
-the [docs][3] and in blog posts [here][4] and [here][5] is not a terribly
-novel or difficult idea to implement. Now the key differences I have with the
+the [docs][3] and in blog posts [here][4] and [here][5] is not a terribly novel
+or difficult idea to implement. Now the key differences I have with the
 aforementioned approaches is one, I do not want to dump every single post I will
 ever make into a single directory, and two, I want my route slugs to have a
-structured hierarchy, something like this: `2020/07/making-of-overthinking-code`.
+structured hierarchy, something like this:
+`2020/07/making-of-overthinking-code`.
 
  Now, I will not add the code inline here as it's kind of long and it's mostly a
  straightforward exercise in either using `fs` or `glob` to read the contents of
@@ -133,14 +134,14 @@ the dictionary resulted in not being to navigate backwards. My plan was just to
 load the map in `asyncData`, lookup the route in the map, fetch the file at the
 path provided and go on from there. Unfortunately, while this solution worked
 while navigating links forward on the site, due to way that the Nuxt component
-lifecycle worked, the relevant code executed the code client side, which is a
-problem, considering the construction of the route to filepath map is very much
-a server-side only operation. As a result, I had problems with nonexistent
-modules not being available and thereby halting the rendering of the app,
-because, you know, the module the code imports is not available client-side.
+lifecycle worked, the relevant code executed client side, which is a problem,
+considering the construction of the route to filepath map is very much a
+server-side only operation. As a result, I had problems with nonexistent modules
+not being available and thereby halting the rendering of the app, because, you
+know, the module the code imports is not available client-side.
 
 So after trying a number of quick fixes that did not solve the issue, I decided
-to check the [Vue-SSR] (Server Side Rendering) documentation to see if it had
+to check the [Vue-SSR][7] (Server Side Rendering) documentation to see if it had
 any useful suggestions, seeing as Nuxt is built on top of Vue and Vue-SSR.
 Thankfully, this hunch proved to be the case. As stated in their [Data
 Pre-Fetching and State][8] section:
@@ -155,7 +156,7 @@ for you as well, there's even a special Vuex action, `nuxtServerInit` that Nuxt
 calls for to allow populate and mutate data upon the Nuxt Server starting up.
 After bringing that all over, the problem resolved itself, server-side code
 safely staying on the server-side. Bonus was that it made doing other things
-later on easier, like a site-wide Dark Mode toggle 😀.
+later on easier, like a site-wide dark mode toggle 😀.
 
 ## Final Thoughts and Future Follow Up.
 
