@@ -76,6 +76,16 @@ export default {
       color: $secondary-color;
     }
   }
+  &.light {
+    h2 {
+      color: $primary-color;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    h2 {
+      color: $primary-color;
+    }
+  }
 }
 
 .tags-list {
