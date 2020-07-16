@@ -13,20 +13,21 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.11.0",
-    "@nuxtjs/sitemap": "^2.3.2",
+    "@nuxtjs/axios": "^5.12.0",
+    "@nuxtjs/sitemap": "^2.4.0",
     "focus-visible": "^5.1.0",
     "luxon": "^1.24.1",
     "markdown-it": "^11.0.0",
     "markdown-it-container": "^3.0.0",
-    "markdown-it-highlightjs": "^3.1.0",
-    "nuxt": "^2.13.0"
+    "markdown-it-highlightjs": "^3.2.0",
+    "nuxt": "^2.13.3"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "^10.0.1",
+    "copy-webpack-plugin": "^6.0.3",
     "eslint": "^6.1.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.10.0",
@@ -38,6 +39,6 @@
     "prettier": "^1.19.1",
     "remove-markdown": "^0.3.0",
     "sass-loader": "^8.0.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   }
 }
