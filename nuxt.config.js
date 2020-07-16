@@ -1,3 +1,5 @@
+import path from 'path';
+import CopyPlugin from 'copy-webpack-plugin';
 import Mode from 'frontmatter-markdown-loader/mode';
 import { getRoutesForGenerate } from './plugins/content-utils';
 
@@ -19,6 +21,11 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: '/_nuxt/static/focus-visible.min.js',
+      },
+    ],
   },
   /*
    ** Customize the progress-bar color
@@ -30,6 +37,7 @@ export default {
   css: [
     '~/assets/styles/normalize.css',
     '~/node_modules/highlight.js/scss/atom-one-dark-reasonable.scss',
+    '~/assets/styles/fonts.scss',
   ],
   /*
    ** Plugins to load before mounting the App
@@ -99,6 +107,19 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    plugins: [
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(
+              __dirname,
+              'node_modules/focus-visible/dist/focus-visible.min.js'
+            ),
+            to: 'static/focus-visible.min.js',
+          },
+        ],
+      }),
+    ],
     extend(config, ctx) {
       config.module.rules.push({
         test: /posts\/.+\.md$/,

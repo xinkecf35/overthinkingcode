@@ -84,6 +84,15 @@ html {
   margin: 0;
 }
 
+*:focus {
+  outline: 3px $secondary-color dashed;
+}
+
+*:focus:not(:focus-visible),
+*:focus:not([data-focus-visible-added]) {
+  outline: none;
+}
+
 .container {
   background-color: $default-white;
   color: $default-black;
