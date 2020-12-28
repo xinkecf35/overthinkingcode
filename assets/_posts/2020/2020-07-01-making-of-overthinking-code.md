@@ -82,7 +82,7 @@ else.
 ### Route Generation
 
 So I started this project prior to Nuxt version 2.13. If you're never played
-with Nuxt, this version is signficant as this version introduced a crawler and
+with Nuxt, this version is significant as this version introduced a crawler and
 will during the build process generate routes for you. Prior to this version,
 any routes that has dynamic route parameters would not be generated and thereby
 not be rendered. Fortunately, in the Nuxt configuration you can specify routes,
@@ -135,7 +135,7 @@ load the map in `asyncData`, lookup the route in the map, fetch the file at the
 path provided and go on from there. Unfortunately, while this solution worked
 while navigating links forward on the site, due to way that the Nuxt component
 lifecycle worked, the relevant code executed client side, which is a problem,
-considering the construction of the route to filepath map is very much a
+considering the construction of the route to file-path map is very much a
 server-side only operation. As a result, I had problems with nonexistent modules
 not being available and thereby halting the rendering of the app, because, you
 know, the module the code imports is not available client-side.
@@ -171,7 +171,7 @@ right now is that Flexbox is a god send, best thing since sliced bread. Only
 final note is given all the work done in handling content, I have a feeling that
 I might ultimately need to concede and use a database to manage all the content
 anyway. Though, knowing myself, I probably still try to enforce the no active
-server-side processes besizes the web server, and I'll try to use SQLite instead
+server-side processes besides the web server, and I'll try to use SQLite instead
 of something more sensible like Postgres or Mongo.
 
 [1]: https://nuxtjs.org/
