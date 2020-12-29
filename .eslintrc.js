@@ -12,6 +12,7 @@ module.exports = {
     'google',
     'prettier',
     'prettier/vue',
+    'plugin:vue/essential',
     'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
   ],

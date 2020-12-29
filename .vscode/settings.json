@@ -3,5 +3,16 @@
     "vetur.grammar.customBlocks": {
         "router": "js"
     },
-    "editor.rulers": [80, 120],
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
 }

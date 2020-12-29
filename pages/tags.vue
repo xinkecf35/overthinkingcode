@@ -54,6 +54,7 @@ export default {
     border: none;
     color: inherit;
     font-weight: inherit;
+    width: max-content;
   }
   h1 {
     font-size: 2.75em;

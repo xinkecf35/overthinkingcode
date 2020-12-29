@@ -1,7 +1,7 @@
 # overthinkingcode
 
 > Source for Overthinking Code Blog by Xinke Chen
-> Hosted at: TBD (deciding between four TLDs)
+> Hosted at: [overthinkingcode.net](https://overthinkingcode.net)
 
 ## Have A Concern?
 Like what you see on the blog? Have a suggestion to improve it? Feel free to create
