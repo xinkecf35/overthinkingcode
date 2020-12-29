@@ -6,8 +6,6 @@
 function extractExcerpt(body) {
   const removeMd = require('remove-markdown');
   const excerptEndIndex = body.search(/\.\s+##/);
-  // eslint-disable-next-line no-console
-  console.log(excerptEndIndex);
   if (excerptEndIndex !== -1) {
     return removeMd(body.slice(0, excerptEndIndex));
   } else {
