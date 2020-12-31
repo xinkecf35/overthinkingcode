@@ -25,6 +25,18 @@ export default {
   data() {
     return { activeTag: '' };
   },
+  head() {
+    return {
+      title: 'Tags | Overthinking Code',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Collection of meta tags for the Overthinking Code Blog',
+        },
+      ],
+    };
+  },
   computed: {
     ...mapGetters(['getColorScheme']),
     ...mapState(['tags']),

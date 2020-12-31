@@ -1,15 +1,16 @@
+import * as RemoveMd from 'remove-markdown';
+
 /**
  * Helper function to extract an excerpt from markdown
  * @param {string} body raw markdown
  * @return {string} stripped markdown excerpt
  */
 function extractExcerpt(body) {
-  const removeMd = require('remove-markdown');
   const excerptEndIndex = body.search(/\.?\s+##/);
   if (excerptEndIndex !== -1) {
-    return removeMd(body.slice(0, excerptEndIndex));
+    return RemoveMd(body.slice(0, excerptEndIndex));
   } else {
-    return removeMd(body)
+    return RemoveMd(body)
       .split(/\s+/g)
       .slice(0, 140)
       .join(' ');
