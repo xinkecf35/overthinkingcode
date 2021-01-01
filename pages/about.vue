@@ -2,6 +2,28 @@
   <main id="about-content">
     <article>
       <h1>About</h1>
+      <h2>What is "Overthinking Code"?</h2>
+      <div class="about-row">
+        <p>
+          Overthinking Code, is part technical blog, part journaling device.
+          It's a place to keep track of the tools, techniques, and other items
+          that I find useful or interesting, and may be of use in the future. In
+          short, a place to collect all the odd bits and pieces of
+          experimentation I do and to reflect on that experience.
+        </p>
+      </div>
+      <div class="about-row">
+        <p>
+          As for the title itself and why the blog is called "Overthinking
+          Code", it is part personal habit, part call to action. I believe by
+          asking "what if?", by implementing the sometimes silly or overkill
+          solutions, that along the way learn something of value, regardless if
+          the ultimate product matters or not. Or more concisely, the journey to
+          the solution is just as important, if not more so, than the ultimate
+          destination.
+        </p>
+      </div>
+      <h2>Who is Xinke Chen</h2>
       <div class="about-row">
         <p>
           I am Xinke Chen, webmaster and author of the blog you're currently on
@@ -13,7 +35,10 @@
           iOS with Objective-C and Swift, to PostgreSQL and Vue with JavaScript,
           my curiosity with technology and software is quite diverse.
         </p>
-        <img src="~/assets/images/profile.jpg" alt="picture of Xinke Chen" />
+        <img
+          src="~/assets/images/profile.jpg"
+          alt="picture of the author, Xinke Chen"
+        />
       </div>
       <div class="about-row">
         <p>
@@ -30,36 +55,26 @@
           alt="Startrails over the Cathedral of Learning (Pittsburgh Oct. 2017)"
         />
       </div>
-      <div class="about-row">
-        <div>
-          <h2>What is "Overthinking Code"?</h2>
-          <p>
-            Overthinking Code, the blog itself, is largely created and devised
-            as a journaling device for myself; to keep track of tools and things
-            I find useful or interesting and thereby may be of use in the
-            future. Additionally, the blog is also a place for me to reflect on
-            my own career, albeit a reflection with a heavy technical focus.
-          </p>
-        </div>
-      </div>
-      <div class="about-row">
-        <p>
-          The title, is also a reflection of a personal habit of one, one that's
-          arguably not great but also has been one of the causes as to why I've
-          experimented with so much. As a result of overthinking an issue or
-          problem, I pursued a great deal of solutions and implementations that
-          often while overbuilt or could've been done simpler which have down
-          the line been incredibly useful later on. I believe that effectively
-          asking "what if?" is a good thing, and something I feel is worth
-          encouraging (in the right circumstances of course).
-        </p>
-      </div>
     </article>
   </main>
 </template>
 
 <script>
-export default {};
+export default {
+  head() {
+    return {
+      title: 'About Overthinking Code',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'A page on what "Overthinking Code" is and why the blog exists',
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss">
@@ -75,16 +90,16 @@ export default {};
   }
   h2 {
     font-size: 1.75em;
-    margin: 0 0 0.5em 0;
+    margin: 1em 0 1em 0;
   }
 }
 .about-row {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 1em 0 0 0;
+  margin: 1em 0 1em 0;
   p {
     display: block;
     flex: 2 1 50%;
@@ -94,12 +109,12 @@ export default {};
     box-sizing: border-box;
     display: block;
     flex: 1 1 auto;
-    height: auto;
+    height: min-auto;
     width: 25%;
     margin: 0 1em 0 1em;
   }
   @media screen and (max-width: $tablet-max-width - 1) {
-    flex-direction: column;
+    flex-direction: row;
     margin: 1em 0 1em 0;
     img {
       height: 20%;

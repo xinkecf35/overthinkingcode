@@ -1,7 +1,7 @@
 {
   "name": "overthinkingcode",
   "version": "1.0.0",
-  "description": "Source for Overthinking Code",
+  "description": "A blog on technical experimentation, reflection, and overkill in the service of learning something useful. Authored by Xinke Chen",
   "author": "Xinke Chen",
   "private": true,
   "scripts": {
