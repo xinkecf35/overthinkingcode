@@ -17,10 +17,10 @@
           As for the title itself and why the blog is called "Overthinking
           Code", it is part personal habit, part call to action. I believe by
           asking "what if?", by implementing the sometimes silly or overkill
-          solutions, that along the way learn something of value, regardless if
-          the ultimate product matters or not. Or more concisely, the journey to
-          the solution is just as important, if not more so, than the ultimate
-          destination.
+          solutions, that along the way we learn something of value, regardless
+          if the ultimate product matters or not. Or more concisely, the journey
+          to the solution is just as important, if not more so, than the
+          ultimate destination.
         </p>
       </div>
       <h2>Who is Xinke Chen</h2>
