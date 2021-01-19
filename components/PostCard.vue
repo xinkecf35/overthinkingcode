@@ -22,9 +22,7 @@
       </div>
     </div>
     <p>{{ excerpt }}...</p>
-    <nuxt-link :to="page" class="more-link">
-      More
-    </nuxt-link>
+    <nuxt-link :to="page" class="more-link"> More </nuxt-link>
   </div>
 </template>
 
@@ -78,6 +76,7 @@ export default {
     font-size: 2.5em;
     font-weight: 700;
     font-family: $header-font-stack;
+    margin-left: -3px; // hack to make the header look more aligned
   }
   p {
     font-size: 1.15em;
@@ -100,9 +99,10 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   font-size: 1 em;
+  margin-bottom: 0.5em;
   span {
-    min-width: 1em;
-    padding: 1em 0.5em 1em 0em;
+    width: max-content;
+    padding: 0.5em 0.5em 0.5em 0em;
   }
   ul {
     padding: 0;
@@ -113,7 +113,7 @@ export default {
     flex-wrap: wrap;
     min-width: 1em;
     li {
-      padding: 1em 0.5em 1em 0em;
+      padding: 0.5em 0.5em 0.5em 0em;
       a {
         font-weight: 600;
         &:hover {
@@ -125,6 +125,7 @@ export default {
 
   .card-meta-info {
     display: flex;
+    align-content: start;
   }
 }
 </style>

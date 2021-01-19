@@ -110,7 +110,8 @@ export default {
   }
   pre {
     margin: 1.5em 0 1.5em 0;
-    white-space: pre-wrap;
+    white-space: pre;
+    overflow: auto;
   }
   ul {
     margin: 0.75em 0 0.75em 0.5em;
@@ -121,7 +122,7 @@ export default {
     box-shadow: 0px 4px 10px hsla(0, 0, 12%, 0.75);
   }
   @media screen and (max-width: $mobile-max-width) {
-    font-size: 16px;
+    font-size: 18px;
     width: $content-mobile-width;
   }
 }
@@ -134,8 +135,8 @@ export default {
   font-size: 0.85em;
   margin-bottom: 1em;
   span {
-    min-width: 1em;
-    padding: 1em 0.5em 1em 0em;
+    width: max-content;
+    padding: 0.5em 0.5em 0.5em 0em;
   }
   ul {
     padding: 0;
@@ -146,17 +147,17 @@ export default {
     flex-wrap: wrap;
     min-width: 1em;
     li {
-      padding: 1em 0.5em 1em 0em;
+      padding: 0.5em 0.5em 0.5em 0em;
     }
   }
   @media screen and (max-width: $mobile-max-width) {
-    font-size: 12px;
+    font-size: 14px;
     span {
-      padding: 0.25em 0.25em 0.25em 0;
+      padding: 0.35em 0.35em 0.35em 0;
     }
     ul {
       li {
-        padding: 0.25em 0.25em 0.25em 0;
+        padding: 0.35em 0.35em 0.35em 0;
       }
     }
   }
