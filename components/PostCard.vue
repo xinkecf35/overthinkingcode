@@ -77,12 +77,17 @@ export default {
     font-weight: 700;
     font-family: $header-font-stack;
     margin-left: -3px; // hack to make the header look more aligned
+    @media screen and (max-width: $mobile-max-width) {
+      font-size: 1.75em;
+    }
   }
   p {
     font-size: 1.15em;
     line-height: 1.5em;
     margin-bottom: 0.75em;
     @media screen and (max-width: $mobile-max-width) {
+      font-size: 1.05em;
+      line-height: 1.35em;
       overflow-wrap: break-word;
     }
   }
@@ -125,7 +130,7 @@ export default {
 
   .card-meta-info {
     display: flex;
-    align-content: start;
+    align-content: flex-start;
   }
 }
 </style>

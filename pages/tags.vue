@@ -67,6 +67,10 @@ export default {
     color: inherit;
     font-weight: inherit;
     width: max-content;
+    @media screen and (max-width: $mobile-max-width) {
+      text-align: left;
+      max-width: 85vw;
+    }
   }
   h1 {
     font-size: 2.75em;

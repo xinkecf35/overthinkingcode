@@ -81,16 +81,25 @@ export default {
     font-size: 2.75em;
     font-weight: 700;
     margin: 0.75em 0 0.25em 0;
+    @media screen and (max-width: $mobile-max-width) {
+      font-size: 2.25em;
+    }
   }
   h2 {
     font-size: 2.25em;
     font-weight: 600;
     margin: 0.5em 0 0.5em 0;
+    @media screen and (max-width: $mobile-max-width) {
+      font-size: 1.75em;
+    }
   }
   h3 {
     font-size: 1.75em;
     font-weight: 600;
     margin: 0.5em 0 0.5em 0;
+    @media screen and (max-width: $mobile-max-width) {
+      font-size: 1.25em;
+    }
   }
   img {
     display: block;
@@ -106,6 +115,9 @@ export default {
       border-radius: 0.25em;
       color: $default-black;
       padding: 0.125em 0.25em 0.125em 0.25em;
+    }
+    @media screen and (max-width: $mobile-max-width) {
+      line-height: 1.2em;
     }
   }
   pre {

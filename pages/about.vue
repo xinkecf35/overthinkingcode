@@ -104,6 +104,9 @@ export default {
     display: block;
     flex: 2 1 50%;
     line-height: 1.4em;
+    @media screen and (max-width: $mobile-max-width) {
+      font-size: 0.8em;
+    }
   }
   img {
     box-sizing: border-box;

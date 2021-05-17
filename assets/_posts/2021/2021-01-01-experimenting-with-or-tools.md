@@ -95,21 +95,23 @@ especially hard on how to add that constraint to the model. Plus gives me a nice
 easy bonus of being able to parallelize the solving operations over locations.
 
 ## The Tool
-With the problem defined and a direction to start in, it was now time to turn
-theory into code and with that a search for optimization package/tool that will
-hopefully let me model this problem without needing me to implement the
-algorithms myself.
+With the problem defined and a direction identified, it was now time to turn
+theory into code. To start, I needed to search for an optimization package or tool
+that will hopefully let me model this problem without needing me to implement
+the algorithms myself.
 
-Now, one interesting wrinkle to the search for such a tool was that it be in a
-language that I was both familiar with and is used at the company extensively
-and ideally that the team also had experience with and be in the same language
-we would build out other components in. And thus began the quixotic search for
-an optimization package with a JavaScript interface. Unsurprisingly, I didn't
-find much. As it turns out, Javascript is not exactly a popular language for
-doing constraint optimization with. I did briefly contemplate on using Node
-Native API so I could broaden my search to include tools implemented in C++ but
-that would have pretty much guaranteed any solution created would have been
-immediately been unmaintainable. 
+Now, one interesting wrinkle for the search was that the tool had be in a
+language that I was both familiar with and that the language is used at the
+company extensively. Ideally, the language would also be one that the team also
+had plenty of experience with, and be the same language we would build out other
+components in. 
+
+And thus began the quixotic search for an optimization package with a JavaScript
+interface. Unsurprisingly, I didn't find much. As it turns out, Javascript is
+not exactly a popular language for doing constraint optimization with. I did
+briefly contemplate on using Node Native API so I could broaden my search to
+include tools implemented in C++ but that would have pretty much guaranteed any
+solution created would have been immediately been unmaintainable. 
 
 Fortunately, while contemplating in whether or not to learn how to use the Node
 Native API worked and how hard it be to learn how to code with V8, I found
