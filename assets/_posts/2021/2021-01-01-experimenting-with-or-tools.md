@@ -12,8 +12,8 @@ tags:
   - Optimization
 ---
 
-It's been as while since I've updated I figured why not to add a new post? And
-with that hamfisted introduction complete, I present the following: Buddy
+It's been as while since I've updated and I figured why not to add a new post?
+And with that hamfisted introduction complete, I present the following: Buddy
 Pairing as a Constraint Satisfaction Problem (CSP).
 
 ## Background
@@ -53,15 +53,13 @@ constraints governing the variables and domains, there's hopefully some kind of
 assignment or configuration of values in said variables that does not violate
 the constraints.
 
-Now, in many scenarios, your constraints must always be must always be
-satisfied and hold true. So examples of where this applies are like graph
-coloring, Sudoku, equation solving, and so forth.
-
-However, for the use case I am working on, it would be a little inconvenient and
-impractical to have for a pairing to satisfy all constraints, especially if that
-constraint is something as diverse and varied as people's preferences and
-interests. After all, what is the likelihood that I was going to always create
-pairings where said people shared everything in common?
+Now, in many scenarios, your constraints must always be satisfied and hold true,
+e.g. like graph coloring, Sudoku, equation solving, and so forth. However, for
+the use case I am working on, it would be a little inconvenient and impractical
+to have for a pairing to satisfy all constraints, especially if that constraint
+is something as diverse and varied as people's preferences and interests. After
+all, what is the likelihood that I was going to always create pairings where
+said people shared everything in common?
 
 Ideally, the constraint where the new hire and associate share common interests
 and preferences would have to be relaxed, made "soft" if you will. However, I
@@ -101,10 +99,10 @@ that will hopefully let me model this problem without needing me to implement
 the algorithms myself.
 
 Now, one interesting wrinkle for the search was that the tool had be in a
-language that I was both familiar with and that the language is used at the
-company extensively. Ideally, the language would also be one that the team also
-had plenty of experience with, and be the same language we would build out other
-components in. 
+language that I was familiar with and that the language is also used at the
+company extensively. Also, the language ideally would also be one that the team
+also had plenty of experience with, and be the same one that we would build out
+other components in. 
 
 And thus began the quixotic search for an optimization package with a JavaScript
 interface. Unsurprisingly, I didn't find much. As it turns out, Javascript is
@@ -140,7 +138,7 @@ computationally expensive and time consuming. However, this line of research did
 lead down to bipartite matching and learning about how bipartite matching
 reduces down to network flow problems. Upon seeing that, I was ecstatic, seeing
 as network flow is well covered and there are more than a few libraries out
-there, including my target library, OR-Tools that had solvers for this. So the
+there that had network flow solver, among which OR-Tools counted as one. The
 plan was now to instead to consider a single new hire at a time and find a
 maximal matching between the new hire responses and all the full time associates
 and utilize the flow computed as the means of picking the best buddy. Sure,
@@ -180,7 +178,7 @@ what degree they do not share the same interests with each other. So instead of
 explicitly matching answers from a new hire to associates, what if I instead
 compared the answers that a new hire and an associates had, and determine what
 interests that the associate does not share with the new hire? In other words,
-the set difference between the new hire's answers and the associate answers?
+the set difference between the new hire's answers and the associate's answers?
 
 Cue a few days of obsessive tinkering and eureka! I now have a WCSP that
 generates useful pairings for me! So the problem/model semantically became the
@@ -199,22 +197,23 @@ following:
 ### Quick Note on the Objective Function
 
 Now this is probably not necessary to explain, but the objective function is
-defined as a weighted sum because in the future it would allow users to penalize
-differently not having certain answers versus others. So for example, if we did
-not want people who like pineapple on pizza to be paired with people who do not
-like pineapple on pizza, we could strongly penalizing that assignment by
-changing the associated cost with that answer or question.
+defined as a weighted sum because in the future it would allow us to penalize
+possible pairings differently for not having certain answers versus others. So
+for example, if we did not want people who like pineapple on pizza to be paired
+with people who do not like pineapple on pizza, we could strongly penalizing
+that assignment by changing the associated cost with that answer or question.
 
-A small implementation detail: the cost I assigned to my problems are all
-of type integer. It's partially for simplicity (like, what would a weight of 1.5
-vs 2 get you?), and also because for many of the solvers in OR-Tools, it's a
+Beyond the general idea, there's a couple implementation details I want to
+mention. One small detail is that the cost I assigned to my problems are all of
+type integer. It's partially for simplicity (like, what would a weight of 1.5 vs
+2 get you?), and also because for many of the solvers in OR-Tools, it's a
 requirement that your values are either representable as a boolean or integer
 value. If you find yourself wanting floating point values, do what this nice
 [StackOverflow Answer][2] says to do and just scale your values. Bonus is you do
 not have to worry about the effects of floating point precision in evaluating an
 optimal solution.
 
-Final note about the objective function is that the choice to minimize versus
+Another note about the objective function is that the choice to minimize versus
 maximize was an arbitrary choice and influenced by convention. You can easily
 define the objective function to use the set intersection of the new hire and
 associates answers and maximize the "cost". I just choose to minimize my
@@ -275,8 +274,9 @@ use said data structure both like a list and dictionary at the same time.
 
 As for the outcome of the project and it's future, I've already gotten a few
 chances to use it for real at the expected dataset sizes and the tool has
-performed admirably and the team has gotten useful feedback on the pairing
-process and the overall product and as such, the work continues.
+performed admirably, and the team has gotten useful feedback on the pairing
+process and the overall product which we are looking to incorporate. As such,
+the work continues on the buddy pairing process and it's CSP.
 
 [1]: https://xkcd.com/356/
 [2]: https://or.stackexchange.com/questions/3325/floating-points-in-ortools
