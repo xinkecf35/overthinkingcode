@@ -10,6 +10,9 @@ tags:
   - Lambda
   - DevOps
   - Please
+  - Build Tool
+  - Pip
+  - Function as a Service
 ---
 
 This blog post is a continuation of a previous blog post titled [Hitting the
