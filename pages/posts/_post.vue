@@ -116,9 +116,6 @@ export default {
       color: $default-black;
       padding: 0.125em 0.25em 0.125em 0.25em;
     }
-    @media screen and (max-width: $mobile-max-width) {
-      line-height: 1.2em;
-    }
   }
   pre {
     margin: 1.5em 0 1.5em 0;
@@ -127,7 +124,24 @@ export default {
   }
   ul {
     margin: 0.75em 0 0.75em 0.5em;
+    code {
+      background-color: hsl(62, 55, 85);
+      border-radius: 0.25em;
+      color: $default-black;
+      padding: 0.125em 0.25em 0.125em 0.25em;
+    }
   }
+
+  ol {
+    margin: 0.75em 0 0.75em 0.5em;
+    code {
+      background-color: hsl(62, 55, 85);
+      border-radius: 0.25em;
+      color: $default-black;
+      padding: 0.125em 0.25em 0.125em 0.25em;
+    }
+  }
+
   .hljs {
     color: $default-white;
     border-radius: 0.5em;
