@@ -105,11 +105,11 @@ add the missing definitions as well. Thankfully, a different option does exist.
 
 For the uninitiated, it's important to know that Terraform does not care about
 where definitions live relative to the directory structure. Terraform
-functionally all get merged when Terraform walks over the module root directory
-and determines the changes to the resource graph it needs to make. Thus, the
-solution is pretty anti-climatic: we add more Terraform files we need along with
-the generated file with the additional resources we need. As for referencing the
-generated definitions, we can use the regular syntax:
+functionally merges all the definitions when Terraform walks over the module
+root directory and determines the changes to the resource graph it needs to
+apply. Thus, the solution is pretty anti-climatic: we added more Terraform files
+we needed with the additional resources along with the generated file. As for
+referencing the generated definitions, we can use the regular syntax:
 
 For example:
 
@@ -153,8 +153,10 @@ rule.
 
 ## Was It All Worth It?
 
-It's been a few months since all the legwork was completed, and so far the code
-still works. We have any added a few more tools like we did Chalice.
+It's been a few months since we completed all the legwork, and so far the code
+still works. We have any added a few more tools like we did Chalice in form of
+the Flake8 and Black so at least the pattern described in Part 1 is not hard to
+extend.
 
 However, and with the benefit of hindsight, if asked the question of whether we
 would go with Chalice again, the answer seems to be mostly no.
