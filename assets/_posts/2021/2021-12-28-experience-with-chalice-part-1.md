@@ -37,7 +37,7 @@ my environment (for better or for worst) that I needed to do more than what
 Chalice can nominally do out of the box.
 
 But if you want any amount of control over what Chalice specifically creates,
-you should reconsider whether or not Chalice will expedite your workflows.
+you might want to consider something else.
 
 ## Duct Taping Chalice to Please
 
@@ -49,7 +49,7 @@ straightforward: Get Please to download said package and then use it in the
 build rules.
 
 Alas, it was not quite that simple as Please does not yet natively allow one to
-consume a pip package as a tool/executable. Of course, one could just install it
+consume a pip package as a tool/executable. Of course, one could install it
 to the build agent or a virtualenv and call it a day, but that goes very much
 against what I wanted to do. In keeping with the spirit of Please, I wanted to
 make Chalice hermetically available in my build environment.
@@ -57,16 +57,15 @@ make Chalice hermetically available in my build environment.
 ### Hacking our way towards a Chalice Tool
 
 Fortunately, Please has pretty decent Python rules, and thus I was able to hack
-my way towards a solution. Ultimately, what I did was first have Please to pull
-and download the Chalice package, and introspected the wheel to look at the
-entry point specification. From there, I created a `python_binary` rule where
-the only contents were the Chalice library as defined with a `pip_library` rule
-and a `main.py` file that imports the relevant function to invoke the Chalice
-CLI.
+my way towards a solution. Ultimately, what I did was first have Please pull the
+Chalice package. I then introspected the wheel to look at the entry point
+specification. From there, I created a `python_binary` rule where the only
+contents were the Chalice library as defined with a `pip_library` rule and a
+`main.py` file that imports the relevant function to invoke the Chalice CLI.
 
 One thing of note is that I needed to set `zip_unsafe` as Chalice performs
-filesystem operations to work, and thus doesn't behave well if it is not first extracted
-from the PEX produced by the `python_binary` rule.
+filesystem operations to work, and thus doesn't behave well the PE produced by
+the `python_binary` rule is not first extracted.
 
 ```Python
 # The chalice binary main file. Note how it's just import of a module & function
@@ -100,16 +99,16 @@ Chalice makes. After all, what non-trivial piece of software doesn't rely on
 third-party dependencies? Alas, this was easier said than done. While getting
 the packages downloaded with Please is trivial, using the downloaded artifacts
 less so. The issue is that the artifacts outputted are zip archives of the
-packages. The reason why is to serve as an optimization to make the
-construction of PEX files with `python_binary` faster.
+packages. The reason is to serve as an optimization to make the construction of
+PEX files with `python_binary` faster.
 
-Chalice, which is a build tool in it's own right, expects in most cases that you
+Chalice, which is a build tool in its own right, expects in most cases that you
 would feed it a requirements file and let it download the packages you need for
 your app. The naive thing would have been to maintain a separate file and have
 Please not manage these particular packages, but I wasn't satisfied and wanted
 only my BUILD files to contain the definitions of the dependencies.
 
-So I initially explored getting the file to be produced by Please. The kind
+So I initially explored having Please produce the requirements file. The kind
 folks behind Please told me about how I could use [pre-build functions][1] and
 [`get_labels`][2] to inject all relevant rules and metadata into a `genrule` for
 to produce a requirements file since the `pip_library` haves labels attached
@@ -119,7 +118,7 @@ sub-optimal.
 
 While I was thinking about this, I recalled while skimming the Chalice [app
 packaging][3] documentation that they supported the "vendoring" of packages. The
-particular thing that caught my eye was that how they talked about you could use
+particular thing that caught my eye was how they talked about how you could use
 this to include internal packages or wheels you could not get with pip. I
 realized that if I could get Please to place the wheels it fetches into a vendor
 directory, Chalice would be able to use the packages for creating the deployment
@@ -129,16 +128,16 @@ The real trick for me now was how to do without going nuts listing every
 dependency needed for the app. Fortunately, `genrule` has an argument called
 `needs_transitive_deps` which does what you think it does: it pulls in not only
 the explicit dependencies for your build rule but also all the implicit ones
-that the explicit dependencies need. Fun fact, this is similar to how
-`python_binary` is internally [defined]][5] so that it pulls all the
-dependencies it needs. You still have to define the dependencies in the build
-graph, but at least you do not have to enumerate them all.
+that were declared. Fun fact, this is similar to how `python_binary` is
+internally [defined]][5] so that it pulls all the dependencies it needs. You
+still have to define the dependencies in the build graph, but you do not have to
+enumerate them all to vendor the in the package.
 
 However, as I wrote on a previous blog [post][4], Please internally zips up the
 wheels you get via `pip_library` which placed as-is into the directory doesn't
 do much of anything. In fact, when I was putting this together, I forgot about
-this fact and was confused when the final app was unable to import anything.
-A quick inspection of what Chalice produced revealed, and I quickly whipped up a
+this fact, and thus confused when the final app failed to import anything. A
+quick inspection of what Chalice produced revealed, and I quickly whipped up a
 `genrule` which looks like the following:
 
 ```Python
@@ -225,9 +224,9 @@ would in your preferred shell.
 Now, the astute among you will have noticed I have yet to talk about actually
 deploying any of this. Or the fact there's a file called `hack-chalice-tf.py`
 present in the above rule, but I do not elaborate on why it's there. In short,
-that's a whole other story that I will tell next time. A tiny spoiler is it has
-to do with how Chalice produces infrastructure to deploy. But I'll cover that in
-the next post.
+that's a whole other story that I will tell next time. A tiny spoiler is that it
+has to do with how Chalice produces infrastructure as code to deploy. But I'll
+cover that in the next post.
 
 [1]: https://please.build/post_build.html
 [2]: https://please.build/lexicon.html#get_labels
