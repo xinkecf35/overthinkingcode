@@ -15,11 +15,12 @@ tags:
   - Function as a Service
 ---
 
-This blog post is a continuation of a previous blog post titled [Hitting the
-Limits of Simple: Working with AWS Chalice Part 1][1]. If you haven't read that
-post already, I suggest reading it for the full context. The TL;DR is we have
-jammed Chalice and Please together to get it to produce a deployment package
-along with infrastructure to deploy; we need to deploy that infrastructure now.
+This blog post is a continuation of a previous blog post titled 
+["Hitting the Limits of Simple: Working with AWS Chalice Part 1"][1].
+If you haven't read that post already, I suggest reading it for the full
+context. The TL;DR is we have jammed Chalice and Please together to get it to
+produce a deployment package along with infrastructure to deploy; we need to
+deploy that infrastructure now.
 
 ## Disclaimer
 
