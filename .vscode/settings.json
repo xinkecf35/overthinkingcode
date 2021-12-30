@@ -15,4 +15,8 @@
         "latex",
         "plaintext"
     ],
+    "grammarly.domain": "technical",
+    "grammarly.audience": "general",
+    "grammarly.goals": ["inform"],
+    "grammarly.emotions": ["neutral"]
 }

@@ -117,7 +117,7 @@ function collateMetaPostsDirs(basePath) {
    * @return {string} generated route
    */
   function generateRouteFromFileName(fileName) {
-    const slugRegex = /(\d{4})-(\d{2})-\d{2}-([A-z-]+).md/;
+    const slugRegex = /(\d{4})-(\d{2})-\d{2}-([A-z0-9-]+).md/;
     const matches = fileName.match(slugRegex);
     return '/posts/' + matches.slice(1).join('/');
   }
