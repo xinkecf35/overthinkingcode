@@ -16,42 +16,42 @@ tags:
 ---
 
 This blog post is a continuation of a previous blog post titled [Hitting the
-Limits of Simple: Working with AWS Chalice Part 1][1] If you haven't read that
-post already, I would suggest reading it for the full context. The TL;DR is we
-have jammed Chalice and Please together to get it to produce a deployment
-package and infrastructure to deploy; we need to do that now.
+Limits of Simple: Working with AWS Chalice Part 1][1]. If you haven't read that
+post already, I suggest reading it for the full context. The TL;DR is we have
+jammed Chalice and Please together to get it to produce a deployment package
+along with infrastructure to deploy; we need to deploy that infrastructure now.
 
 ## Disclaimer
 
 So like in the previous post, let me start with a disclaimer that is me trying
 to stay within the set of tooling that my company already has for deploying
-projects to AWS. It is likely you don't need to get this deep though I'll cover
+projects to AWS. You probably don't need to get this deep though I'll cover
 that particular subject at the end. With that out of the way, let's continue.
 
 ## Terraform Integration and Limitations
 
 A key selling point about Chalice is that it can do a one-touch deployment of
 whatever you need to your AWS account based on your code. In my case, that means
-all the resource definitions needed to deploy Lambda, and API Gateway.
+all the resource definitions needed to deploy Lambda and API Gateway.
 
-However, if you want, you can tell Chalice to just produce the deployment
-package and the IaC without actually applying them to your account. A nice touch
-is that you can choose between CloudFormation or Terraform.
+However, if you want, you can tell Chalice to produce the deployment package and
+the IaC without actually applying them to your account. A nice touch is that you
+can select between CloudFormation or Terraform for the generated IaC.
 
 However, a Lambda function and API Gateway an app does not make. Like many apps,
 we needed a database and thus wanted to add more resource definitions. And this
 is where things start to break down.
 
 If you're using CloudFormation, you can ask Chalice to merge a CloudFormation
-template to include additional resources and reference them throughout the IaC.
-However, if you're using Terraform, as we elected to do, you're pretty much on
-your own.
+template to include additional resources and reference them throughout the
+template. However, if you're using Terraform, as we elected to do, you're pretty
+much on your own.
 
-On top of that, it's somewhat difficult to override specific settings of the
-resources it does define. Where I work, all deployed resources are expected to
-be tagged with metadata for inventory and governance purposes. Also, if we can
-tag the relevant resources appropriately, there are company-wide resources we can
-attach to our resources as well.
+On top of that, it's difficult to override specific settings of the resources it
+does define. Where I work, all deployed resources must be tagged with metadata
+for inventory and governance purposes. Additionally, we wanted to be able to
+apply specific tags to certain resources to take advantage of some already
+present automation in our account.
 
 In short, we needed to do two things:
 
@@ -61,10 +61,9 @@ In short, we needed to do two things:
 ## "Hacking" the Generated Terraform
 
 So, to get the generated code in line with what I needed, I needed to tweak the
-Terraform that Chalice produces. One thing of note is that the Terraform Chalice
-produces is not in the HCL you would write in but instead the Terraform JSON
-representation that Hashicorp also supports for specifically for programmatic
-usage.
+Terraform that Chalice produces. An important note is that the Terraform Chalice
+produces is not in the HCL you would write in but the Terraform JSON
+representation that Hashicorp supports specifically for programmatic usage.
 
 On review of the generated IaC, I concluded I only really needed to do two things:
 
@@ -82,36 +81,39 @@ needed to tell API Gateway when to push a new version of your API. One of the
 things the `aws_api_gateway_deployment` resource definition can do is create an
 API Gateway stage resource that represents the published version of your API.
 However, if you elect to create the stage via the `aws_api_gateway_deployment`
-resource, you are not able to manage that resource effectively, i.e. add tags.
+resource, you cannot manage that resource directly with all the
+possible arguments.
 
-In order to tag that resource, and on the recommendation of the AWS provider
-[docs][3], I decided to create a separate `aws_api_gateway_stage` resource.
-However, since I can not control what Chalice generates, the fastest and most
-expedient way was to delete the resource.
+So to tag the required stage resource and on the recommendation of the AWS
+provider [docs][3], I created a separate `aws_api_gateway_stage` resource.
+However, since I can not control what Chalice generates and you can not have
+identically named resources, I deleted the API Gateway deployment resource so I
+do not have that additional headache.
 
-The deletion process was just done by a small Python script that reads the JSON
-file, delete the relevant key-value pairs, and writes the result back out.
-That's it.
+The deletion process was done by a small Python script that reads the
+JSON file, deletes the relevant key-value pairs, and writes the result back out.
+So not terribly hacky besides needing to do so in the first place.
 
-However, we still needed those resources to be defined.
+However, we now needed to define those resources somewhere else.
 
 ### Augmenting Chalice with our Resources
 
-Anyone who has worked with API Gateway and Terraform knows that getting
-rid of the deployment resource means you do not have a deployed API anymore.
-In short, we have to add those resources back in.
+Anyone who has worked with API Gateway and Terraform knows that getting rid of
+the deployment resource means you do not have a deployed API anymore. However,
+it would be an unmaintainable nightmare if I were to ask the Python script to
+add the missing definitions as well. Thankfully, a different option does exist.
 
-Now, a fun thing to note about Terraform and also tangentially for Chalice is
-that Terraform does not care about where definitions are placed in files; they
-functionally all get merged when Terraform walks over the module determines the
-changes to the graph it needs to make. Thus, the solution is anti-climatic: we
-add more Terraform files we need along with the generated file with the
-additional resources we need. As for referencing the generated definitions,
-we use the normal syntax:
+For the uninitiated, it's important to know that Terraform does not care about
+where definitions live relative to the directory structure. Terraform
+functionally all get merged when Terraform walks over the module root directory
+and determines the changes to the resource graph it needs to make. Thus, the
+solution is pretty anti-climatic: we add more Terraform files we need along with
+the generated file with the additional resources we need. As for referencing the
+generated definitions, we can use the regular syntax:
 
 For example:
 
-```Terraform
+```
 resource "aws_aws_gateway_deployment" {
     ...
     rest_api_id = aws_api_gateway.rest_api.rest_api_id  # Taken from generated TF
@@ -138,9 +140,9 @@ produced by Chalice, you can do something like this in your
 }
 ```
 
-As you can see, normal Terraform variables references just work. If you are used
-to Terraform, note that you should wrap all variables with the string
-interpolation syntax instead of leaving it bare.
+As you can see, Terraform variables references work as normal. One quick note
+that you should wrap all variables with the string interpolation syntax instead
+of leaving it bare.
 
 Once this was all complete, integration with the rest of our Terraform was
 straightforward if maybe a little odd. I won't cover the specifics, beyond
@@ -157,20 +159,20 @@ still works. We have any added a few more tools like we did Chalice.
 However, and with the benefit of hindsight, if asked the question of whether we
 would go with Chalice again, the answer seems to be mostly no.
 
-Now, this answer is largely caveated with the fact we wanted to stay within a
-specific company ecosystem. If we had been more willing to ditch our existing
-tooling, I suspect we would be more effusive about Chalice, In effect, doing it
+Now, this answer is caveated by the fact that we wanted to stay within a
+specific company ecosystem. Had we been more willing to ditch our existing
+tooling, I suspect we would be more effusive about Chalice. In effect, doing it
 halfway instead of fully committing meant we did not get the full benefit.
 
-As a framework, I personally also find it difficult to say if Chalice is worth
-it. Sure, it gets the job done, and honestly, it brings you like 80-90 percent
-of what you might want. With the decorator-based API, a Flask developer can be
-comfortable in Chalice. But if one is comfortable with Flask, you might just
-want to reach for something like [flask-apispec][5] You don't get the
-auto-generated IaC of Chalice, but if you can get an OpenAPI specification
-generated it you are most of the way there since Chalice does the same with the
-API Gateway API definition. If you can figure out how to incorporate the API
-Gateway [extensions][6], you're basically there.
+As a framework, I find it difficult to say if Chalice is worth it. Sure, it gets
+the job done, and honestly, it brings you like 80-90 percent of what you might
+want. With the decorator-based API, a Flask developer can be comfortable in
+Chalice. But if one is comfortable with Flask, you might just want to reach for
+something like [flask-apispec][5]. You don't get the auto-generated IaC feature
+of Chalice, but if you can get an OpenAPI specification generated, you are most
+of the way there. Chalice internally does the same with passing an OpenAPI
+specification to define the integrations. If you can figure out how to
+incorporate the API Gateway [extensions][6], you're there.
 
 As for the Lambda function and deployment package, Chalice, by default, creates
 a single zip file with everything in it. Procedurally, that process is not hard
@@ -182,27 +184,23 @@ translating the event from AWS into something Flask can use ala
 
 If you still want a Chalice experience but with more control/features,
 [Zappa][7] does look promising. At the minimum, it advertises being able to work
-with WSGI apps which is pretty promising. And it certainly has interesting
-features out of the box. If I was looking again, I think I might reach for Zappa
-over Chalice.
+with WSGI apps which is pretty promising. And it certainly has more fun features
+out of the box. If I was looking again, I think I might reach for Zappa over
+Chalice.
 
-But taking a step back and reflecting on the overall experience, at this point
+But taking a step back and reflecting on the overall experience, at this point,
 it feels like it should be better. At the moment, it feels like we are still
 trying to figure out how to build non-trivially sized apps with serverless
 architectures. I've seen teams manually craft APIs with Terraform resources
-directly, and I have my direct experience of trying to use a framework, and
-neither experience has been fantastic to the point where I want to repeat it. 
+directly, and I have my direct experience of trying to use a framework. Both
+options have not been fantastic to the point where I would want to repeat it
+with no changes. 
 
-It also doesn't help how every cloud vendor has their own way of doing
-serverless which means experiences don't translate very far. Though, as far as I
-can tell, Lambda is so dominate in this space it's hard to see what others
-talking about say Azure or Knative. Perhaps that be the next project.
-
-Not that's the say I want to ditch AWS Lambda. Having briefly worked with EC2
-and it's API; I can say I vastly prefer this. It's definitely useful not needing
-to think especially hard about availability zones and other concerns. Compared
-to Kubernetes, AWS Lambda certainly has less complexity in the required
-infrastructure as code that is needed to define a service.
+Not that is to say I want to ditch AWS Lambda. I have briefly worked with EC2
+and it's API; I can say I vastly prefer this. It's definitely useful not to
+think especially hard about availability zones and other concerns. Compared to
+Kubernetes, AWS Lambda certainly has less complexity in the required
+infrastructure as code to define an entire service.
 
 
 In short, in the biggest software engineering and development cliche summary
