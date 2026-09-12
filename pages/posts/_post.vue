@@ -111,7 +111,7 @@ export default {
     line-height: 1.4em;
     margin: 0.5em 0 0.5em 0;
     code {
-      background-color: hsl(62, 55, 85);
+      background-color: hsl(62, 55%, 85%);
       border-radius: 0.25em;
       color: $default-black;
       padding: 0.125em 0.25em 0.125em 0.25em;
@@ -125,7 +125,7 @@ export default {
   ul {
     margin: 0.75em 0 0.75em 0.5em;
     code {
-      background-color: hsl(62, 55, 85);
+      background-color: hsl(62, 55%, 85%);
       border-radius: 0.25em;
       color: $default-black;
       padding: 0.125em 0.25em 0.125em 0.25em;
@@ -135,7 +135,7 @@ export default {
   ol {
     margin: 0.75em 0 0.75em 0.5em;
     code {
-      background-color: hsl(62, 55, 85);
+      background-color: hsl(62, 55%, 85%);
       border-radius: 0.25em;
       color: $default-black;
       padding: 0.125em 0.25em 0.125em 0.25em;
@@ -145,7 +145,7 @@ export default {
   .hljs {
     color: $default-white;
     border-radius: 0.5em;
-    box-shadow: 0px 4px 10px hsla(0, 0, 12%, 0.75);
+    box-shadow: 0px 4px 10px hsla(0, 0%, 12%, 0.75);
   }
   @media screen and (max-width: $mobile-max-width) {
     font-size: 18px;

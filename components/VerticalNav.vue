@@ -55,7 +55,7 @@ export default {
 <style lang="scss">
 #nav-wrapper {
   background-color: $primary-color;
-  box-shadow: 0 4px 12px hsla(0, 0, 15%, 0.6);
+  box-shadow: 0 4px 12px hsla(0, 0%, 15%, 0.6);
   color: $default-white;
   display: flex;
   flex-direction: column;

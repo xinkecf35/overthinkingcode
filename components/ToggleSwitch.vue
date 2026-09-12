@@ -60,9 +60,9 @@ export default {
 .toggle-switch {
   width: 42px;
   height: 24px;
-  background-color: hsl(0, 0, 75%);
+  background-color: hsl(0, 0%, 75%);
   border-radius: 14px;
-  box-shadow: 0px 4px 6px hsla(0, 0, 18%, 0.6);
+  box-shadow: 0px 4px 6px hsla(0, 0%, 18%, 0.6);
   position: absolute;
   transition: 0.5s linear;
   right: 0px;
