@@ -1,6 +1,6 @@
 ---
 title: 'How I Learned to Love Podman Quadlets'
-date: 2026-11-15
+date: 2026-11-16
 author: Xinke Chen
 tags:
   - Podman
@@ -12,23 +12,26 @@ tags:
   - Kubernetes
   - Containers
 ---
-
 It has been a while since my last blog post, and I figured it might be worth putting down on paper some of the antics I’ve been up to. Since my last post on here, my work has taken me from application development and doing serverless on AWS to the fun world of platform engineering, on-premises Kubernetes, and more hybrid cloud networking between on-premises and AWS than I might ever have cared for.
 
-And what seems like an occupational hazard with this particular kind of role, I ended up wanting to build a homelab. An OKD homelab. Yes, I literally brought work home with me 🙂.
+And in what seems like an occupational hazard with this particular kind of role, I ended up wanting to build a homelab. An OpenShift/OKD homelab. Yes, I literally brought work home with me 🙂. 
 
-More seriously, I wanted a cluster at home that let me do some of the wilder experiments I couldn’t really justify at work. Additionally, given my background and comfort level, having a Kubernetes control plane to build and target stuff would be more convenient. Plus, I can lie to myself and say I am saving money with the upfront investment by amortizing the cost of the hardware over the next 5-7 years instead of just paying Azure, AWS, or DigitalOcean for a managed Kubernetes control plane, you know, the normal and sane way of running Kubernetes for a shop.
+But along the way, I did ended up containerizing HAProxy and the services behind iPXE on my NAS with Podman Quadlet and figured that on its own was worth examing.
+
+## The Want for an OKD Homelab
+
+More seriously on why an OKD/OpenShift homelab, I wanted a cluster at home that let me do some of the wilder experiments I couldn’t really justify at work. Additionally, given my background and comfort level, having a Kubernetes control plane to build and target stuff would be more convenient. Plus, I can lie to myself and say I am saving money with the upfront investment by amortizing the cost of the hardware over the next 5-7 years instead of just paying Azure, AWS, or DigitalOcean for a managed Kubernetes control plane, you know, the normal and sane way of running Kubernetes for a shop.
 
 Anyway, I did end up building a compact bare-metal HA OKD cluster on top of a stack of used HP Z2 mini PCs with Intel 10th gen i7 CPUs and my custom NAS handling the load-balancing for the cluster. The second part of that overall cluster is what I wanted to talk about for this blog post since that did take an interesting journey and changed how I would approach managing certain kinds of services and orchestrating them.
 
 ## The Want for Containerized and Declarative Network Appliances
 
-I won’t get into the nitty-gritty of what bootstrapping an OKD cluster is like since the docs do a pretty good job, but for our purposes it’s just useful to know the following parts. 
+I won’t get into the nitty-gritty of what bootstrapping an OKD cluster is like since the docs do a pretty good job, but for our purposes it’s just useful to know the following parts.
 
 - For an HA Cluster where you’re bringing your own machines/infra, i.e., UPI, you need to provide an L4 load balancer of some kind to handle cluster API requests
 - For UPI specifically, the load balancer has to be active and configured to listen for requests during bootstrap, as the installer program looks for a live response to the cluster API to proceed.
 
-In my particular case, I was following [agent-based install][1] (NOTE: link is to OpenShift docs but the process is identical beyond acquiring the installer binary from the OKD upstream instead) as that reduced the number of machines I needed to bootstrap the control plane, but it  put me on the hook for needing to provide an L4 load balancer as part of my infrastructure/cluster installation.
+In my particular case, I was following [agent-based install][1] (NOTE: link is to OpenShift docs but the process is identical beyond acquiring the installer binary from the OKD upstream instead) as that reduced the number of machines I needed to bootstrap the control plane, but it put me on the hook for needing to provide an L4 load balancer as part of my infrastructure/cluster installation.
 
 Now the docs do give you a minimum HAProxy configuration you can use to get started quickly, and since I didn't have a preference for anything else, I just rolled with HAProxy. However, after working a while in the Cloud/Kubernetes space, I didn’t just want to do what I used to do in the days of old, AKA high-school/college, and just do an `apt install haproxy` and configure the `.conf` files directly on my host. I wanted something where the configuration and program could be shipped as a single configuration and somewhat isolated from the rest of the host. In particular, I even wanted to give the services in question their own IP address in the subnet I had set aside for the cluster.
 
@@ -40,9 +43,9 @@ Now, one approach could have been to set up virtualization and stand up a VM, bu
 - Containerize the whole setup
 - Use structured tooling to orchestrate the configuration and updates for said container
 
-Not going to lie, that’s a fairly specific wishlist, but with the path I ended up down, it ended up being a pretty neat configuration to configure and even put me on the path to be able to containerize more complex services like iPXE infrastructure, or at least a barebones version of netboot infrastructure to get the OKD installation done. 
+Not going to lie, that’s a fairly specific wishlist, but with the path I ended up down, it ended up being a pretty neat configuration to configure and even put me on the path to be able to containerize more complex services like iPXE infrastructure, or at least a barebones version of netboot infrastructure to get the OKD installation done.
 
-##  Quadlets, Kubernetes Manifests, Systemd, Oh My!
+## Quadlets, Kubernetes Manifests, Systemd, Oh My!
 
 In terms of getting a container a dedicated IP on my network, that part was relatively straightforward if new to me. I configured my container host/NAS to have a `macvlan` network and assigned it to use a subnet of the network I was going to dedicate to the overall cluster on my network. Testing it out and seeing if I got a real IP for the test container on the network was straightforward to do with Docker.
 
@@ -74,30 +77,29 @@ spec:
         app: okd-homelab-lab
     spec:
       containers:
-      - image: docker.io/haproxy:latest
-        name: okd-homelab-lab
-        ports:
-        - containerPort: 80
-          name: http
-        - containerPort: 443
-          name: https
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-        volumeMounts:
-        - mountPath: /usr/local/etc/haproxy
-          name: haproxy-configs
-          readOnly: true
+        - image: docker.io/haproxy:latest
+          name: okd-homelab-lab
+          ports:
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          volumeMounts:
+            - mountPath: /usr/local/etc/haproxy
+              name: haproxy-configs
+              readOnly: true
       securityContext:
         sysctls:
-        - name: net.ipv4.ip_unprivileged_port_start
-          value: "0"
+          - name: net.ipv4.ip_unprivileged_port_start
+            value: '0'
       volumes:
-      - configMap:
-          name: haproxy-configs-bgmfg4dk46
-        name: haproxy-configs
-
+        - configMap:
+            name: haproxy-configs-bgmfg4dk46
+          name: haproxy-configs
 ```
 
 Additionally, while learning how `podman kube play` works and its limits, I also learned about [Podman Quadlets][5]. For the uninitiated, the TL;DR is that it’s a declarative abstraction for managing containers as systemd units/service. That was perfect for the next two things I still needed to do:
@@ -125,8 +127,8 @@ WantedBy=multi-user.target
 
 Between these two features, I was able to delegate and abstract a lot of details and mechanics you might ordinarily spend time on to start up a container as a system service and have it start up in the right order after boot.
 
- Not to say it’s impossible to have Docker Compose handle things like restarting containers on boot and managing the lifecycle, but there’s a certain expedience and convenience to just being able to use the same overall process to manage the containers' lifecycle the same way I would say the `samba` service on the NAS. 
- 
+Not to say it’s impossible to have Docker Compose handle things like restarting containers on boot and managing the lifecycle, but there’s a certain expedience and convenience to just being able to use the same overall process to manage the containers' lifecycle the same way I would say the `samba` service on the NAS.
+
 As for getting the configs managed and deployed to the host/NAS, I was able to implement an Ansible [role][2] that does the following:
 
 - Render the HAproxy config and required container definition with Kustomize using `kubernetes.core.kustomize` lookup plugin
@@ -134,7 +136,8 @@ As for getting the configs managed and deployed to the host/NAS, I was able to i
 - Template and add the Quadlet/effective systemd unit definition to the NAS with `ansible.builtin.template`
 - Manage the container lifecycle using the regular `ansible.builtin.systemd_service`
 
-Again, it's not maybe the most obvious or natural choice, and arguably a little cursed,  but it largely allows me to re-use the same semantics I use with Kubernetes to update and upgrade the HAProxy service with only really is the use of Ansible to orchestrate and apply the changes over, say like an CI/CD pipeline or tooling like Helm or ArgoCD.
+Again, it's not maybe the most obvious or natural choice, and arguably a little cursed, but it largely allows me to re-use the same semantics I use with Kubernetes to update and upgrade the HAProxy service with only really is the use of Ansible to orchestrate and apply the changes over, say like an CI/CD pipeline or tooling like Helm or ArgoCD.
+
 ## Putting the Pod into Podman
 
 One thing I certainly underappreciated about Podman before this is truly how seriously it takes its intent in being able to manage "pods" of containers. Again, it's probably not a surprise at this point once you learn about the Kubernetes manifest syntax support with `podman kube play`, but it was the next part of the OKD bootstrap journey that, for me at least, treated it even less as just a "Docker CLI" alternative and more as its own distinct tool and benefits.
@@ -147,20 +150,21 @@ I had planned on just writing the images to a USB image and manually power on th
 
 Initially, I had just set up a very basic TFTP container for the netboot, but as I was testing to get the data from it to make sure it did work, I quickly discovered why most netboot infrastructure typically pairs the TFTP server with an HTTP server to serve the disk images 😅.
 
-I had already found a reference [docker-compose.yaml][3] to build off which did optionally define a HTTP server of to get going quickly, but since I had committed to using Podman Quadlets to manage infra I had to translate all that to Podman and Quadlets first. One really nice thing I did get for free from needing to do that translation is that I was able to quite quickly get both the HTTP server and TFTP server to share the same IP address/network identity on the network. 
+I had already found a reference [docker-compose.yaml][3] to build off which did optionally define a HTTP server of to get going quickly, but since I had committed to using Podman Quadlets to manage infra I had to translate all that to Podman and Quadlets first. One really nice thing I did get for free from needing to do that translation is that I was able to quite quickly get both the HTTP server and TFTP server to share the same IP address/network identity on the network.
 
-Granted, that's not particularly exceptional if you're creating the containers using a bridged network or if you're familiar with creating pods manually with Podman and setting up containers to share a single network namespace, but thanks to how the abstraction works with Podman Kube and how it internally translates the manifest to Podman features it effectively by default setup that network namespace sharing between the containers. In other words, all I had to think about was just [write][4] a `Deployment` spec with multiple containers in it, and Podman handled all the details for me. I was even able to get Podman to create volumes via `PersistentVolumeClaim` API to hold the disk images and iPXE configs for me. 
+Granted, that's not particularly exceptional if you're creating the containers using a bridged network or if you're familiar with creating pods manually with Podman and setting up containers to share a single network namespace, but thanks to how the abstraction works with Podman Kube and how it internally translates the manifest to Podman features it effectively by default setup that network namespace sharing between the containers. In other words, all I had to think about was just [write][4] a `Deployment` spec with multiple containers in it, and Podman handled all the details for me. I was even able to get Podman to create volumes via `PersistentVolumeClaim` API to hold the disk images and iPXE configs for me.
 
 And the ability to define the iPXE menus as just ConfigMaps became really useful later on during troubleshooting, as I ended up needing to wipe the boot disks several times to restart the installation process. Given how many times I had to do so, I ended up creating a custom iPXE menu and added `gparted` entry instead of just serving the OKD iPXE config, just so I didn't have to unplug and replug a USB drive just to start over when I could otherwise just remote in with Intel AMT and its KVM-like feature.
+
 ## Conclusion
 
 At least with this part of the homelab, I am been pleased with the experience of using Podman to containerize these services. A younger me in the past might have more readily just installed the software directly to the machines and for what I am doing, certainly could have done that as well with Ansible as well. However, given that this is all in the service of supporting a Kubernetes/OKD homelab, it's been great to be able to manage and roll out updates to the services more or less the same way I would be updating software on-cluster, i.e., bumping to a new image tag in my Kustomization/Kubernetes Manifest and applying the updated manifest files and Quadlet definition to the host and restarting the systemd service with Ansible.
 
 And while I do plan to make the OKD cluster I now have running the home for most of my stuff going forward, I think if I ever needed a single machine to serve multiple services, I am probably inclined to utilize Podman and Ansible together like this again, even with things that require real L2/L3 network identities on the network.
 
-[1]:https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/installing_an_on-premise_cluster_with_the_agent-based_installer/preparing-to-install-with-agent-based-installer
-[2]:https://github.com/xinkecf35/okd-homelab/tree/e0de872efc08a80fad3cf1dde497c56a1c8ee31c/infra/roles/haproxy
-[3]:https://github.com/kalaksi/docker-tftpd/blob/bcdf213aaebb3906ef18217452afbb45d801ff5f/docker-compose.yml
-[4]:https://github.com/xinkecf35/okd-homelab/blob/e0de872efc08a80fad3cf1dde497c56a1c8ee31c/infra/roles/pxe/files/kustomize/pxe-deployment.yaml
-[5]:https://docs.podman.io/en/stable/markdown/podman-systemd.unit.5.html
+[1]: https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/installing_an_on-premise_cluster_with_the_agent-based_installer/preparing-to-install-with-agent-based-installer
+[2]: https://github.com/xinkecf35/okd-homelab/tree/e0de872efc08a80fad3cf1dde497c56a1c8ee31c/infra/roles/haproxy
+[3]: https://github.com/kalaksi/docker-tftpd/blob/bcdf213aaebb3906ef18217452afbb45d801ff5f/docker-compose.yml
+[4]: https://github.com/xinkecf35/okd-homelab/blob/e0de872efc08a80fad3cf1dde497c56a1c8ee31c/infra/roles/pxe/files/kustomize/pxe-deployment.yaml
+[5]: https://docs.podman.io/en/stable/markdown/podman-systemd.unit.5.html
 [6]: https://docs.podman.io/en/latest/markdown/podman-kube.1.html
