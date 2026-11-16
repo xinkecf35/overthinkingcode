@@ -3,7 +3,6 @@ title: 'How I Learned to Love Podman Quadlets'
 date: 2026-11-15
 author: Xinke Chen
 tags:
-tags:
   - Podman
   - Quadlet
   - Homelab
