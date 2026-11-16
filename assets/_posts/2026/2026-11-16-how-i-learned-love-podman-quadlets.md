@@ -16,7 +16,7 @@ It has been a while since my last blog post, and I figured it might be worth put
 
 And in what seems like an occupational hazard with this particular kind of role, I ended up wanting to build a homelab. An OpenShift/OKD homelab. Yes, I literally brought work home with me 🙂. 
 
-But along the way, I did ended up containerizing HAProxy and the services behind iPXE on my NAS with Podman Quadlet and figured that on its own was worth examing.
+But along the way, I did ended up containerizing HAProxy and the services behind iPXE on my NAS with Podman Quadlet and figured that on its own was worth examining.
 
 ## The Want for an OKD Homelab
 
